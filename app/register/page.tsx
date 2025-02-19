@@ -131,7 +131,7 @@ interface RegisterFormInputs {
 export default function RegisterPage() {
   const { register, handleSubmit } = useForm<RegisterFormInputs>();
   const router = useRouter();
-  const { register: registerUser } = useAuth();
+  const { registerUser } = useAuth();
 
   const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
     console.log(data);
@@ -155,7 +155,6 @@ export default function RegisterPage() {
               </label>
               <input
                 id="email-address"
-                name="email"
                 type="email"
                 autoComplete="email"
                 required
@@ -170,7 +169,6 @@ export default function RegisterPage() {
               </label>
               <input
                 id="password"
-                name="password"
                 type="password"
                 autoComplete="current-password"
                 required
@@ -185,7 +183,6 @@ export default function RegisterPage() {
               </label>
               <input
                 id="confirm-password"
-                name="confirmPassword"
                 type="password"
                 autoComplete="current-password"
                 required
