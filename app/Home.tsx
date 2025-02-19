@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import AppTable from "./AppTable/AppTable";
 import { useTheme } from "next-themes";
 import { DeleteDialog } from "./DeleteDialog";
-import LoginPage from "./login/page";
+import LoginPage from "./login";
 
 export default function Home() {
   const { theme } = useTheme();
