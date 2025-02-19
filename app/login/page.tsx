@@ -7,7 +7,7 @@ interface LoginPageProps {
   onLogin: () => void;
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
+export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <Card className="w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-lg">
@@ -23,5 +23,3 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     </div>
   );
 };
-
-export default LoginPage;
