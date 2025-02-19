@@ -1,12 +1,9 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppHeader from "./AppHeader/AppHeader";
 import { Card } from "@/components/ui/card";
 import AppTable from "./AppTable/AppTable";
 import { useTheme } from "next-themes";
 import { DeleteDialog } from "./DeleteDialog";
-import React from "react";
 import LoginPage from "./login/page";
 
 export default function Home() {
