@@ -2,12 +2,6 @@
 
 import React, { createContext, useContext, useState } from "react";
 
-// interface AuthContextType {
-//   isLoggedIn: boolean;
-//   login: () => void;
-//   logout: () => void;
-// }
-
 interface User {
   id: string;
   name: string;
@@ -18,7 +12,8 @@ export interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  registerUser: () => void; // Add this line
+  registerUser: () => void;
+  isLoggedIn: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -26,7 +21,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const setIsLoggedIn = useState(false)[1];
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = async (email: string): Promise<void> => {
     // Add your login logic here
@@ -41,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ user: null, login, logout, registerUser: () => {} }}
+      value={{ user: null, login, logout, registerUser: () => {}, isLoggedIn }}
     >
       {children}
     </AuthContext.Provider>

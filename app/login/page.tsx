@@ -125,7 +125,7 @@ export default function LoginPage() {
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
     console.log(data);
     // Handle login logic here
-    login();
+    login(data.email, data.password);
     // On successful login, redirect to the dashboard
     router.push("/");
   };
@@ -144,7 +144,6 @@ export default function LoginPage() {
               </label>
               <input
                 id="email-address"
-                name="email"
                 type="email"
                 autoComplete="email"
                 required
@@ -159,7 +158,6 @@ export default function LoginPage() {
               </label>
               <input
                 id="password"
-                name="password"
                 type="password"
                 autoComplete="current-password"
                 required
@@ -173,7 +171,6 @@ export default function LoginPage() {
             <div className="flex items-center">
               <input
                 id="remember-me"
-                name="remember-me"
                 type="checkbox"
                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 {...register("rememberMe")}
