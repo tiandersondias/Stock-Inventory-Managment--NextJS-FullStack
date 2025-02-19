@@ -51,7 +51,7 @@ export default function AppTable() {
 
   useEffect(() => {
     loadProducts();
-  }, []);
+  }, [loadProducts]);
 
   return (
     <Card className="mt-12  flex flex-col shadow-none  poppins border-none ">

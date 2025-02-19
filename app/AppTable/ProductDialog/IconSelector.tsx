@@ -238,7 +238,7 @@ export function IconSelector({
       if (iconToSelected) {
         triggerIconSelection(iconToSelected);
       }
-    }, [iconToSelected]);
+    }, [triggerIconSelection, iconToSelected]);
 
     return <IconDialogBox />;
   }
