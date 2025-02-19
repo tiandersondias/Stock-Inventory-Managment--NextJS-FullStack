@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import AppHeader from "./AppHeader/AppHeader";
 import { Card } from "@/components/ui/card";
