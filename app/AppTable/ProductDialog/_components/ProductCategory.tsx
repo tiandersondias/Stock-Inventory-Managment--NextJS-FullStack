@@ -64,6 +64,7 @@
 // }
 
 "use client";
+
 import { Product } from "@/app/Products/columns";
 import { Label } from "@/components/ui/label";
 import {
@@ -100,7 +101,7 @@ export function ProductCategory({
   useEffect(() => {
     setIsClient(true);
     setSelectedCategory("Accessories");
-  }, []);
+  }, [setSelectedCategory]);
 
   if (!isClient) return null;
 

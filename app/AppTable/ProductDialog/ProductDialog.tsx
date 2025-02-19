@@ -407,7 +407,7 @@ export default function ProductDialog() {
       setSelectedTab("Available");
       setSelectedCategory("Accessories");
     }
-  }, [selectedProduct, openProductDialog]);
+  }, [selectedProduct, openProductDialog, reset]);
 
   const onSubmit = async (data: ProductFormData) => {
     if (!selectedProduct) {
