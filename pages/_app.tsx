@@ -1,11 +1,13 @@
-import { AuthProvider } from "@/app/authContext";
+import { ThemeProvider } from "@/app/ThemeProvider";
 import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log("Rendering _app.tsx");
+
   return (
-    <AuthProvider>
+    <ThemeProvider>
       <Component {...pageProps} />
-    </AuthProvider>
+    </ThemeProvider>
   );
 }
 

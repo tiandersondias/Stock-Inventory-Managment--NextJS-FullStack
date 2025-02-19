@@ -1,52 +1,56 @@
-"use client";
+// "use client";
 
-import React, { createContext, useContext, useState } from "react";
+// import React, { createContext, useContext, useState } from "react";
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+// interface User {
+//   id: string;
+//   name: string;
+//   email: string;
+// }
 
-export interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-  registerUser: () => void;
-  isLoggedIn: boolean;
-}
+// export interface AuthContextType {
+//   user: User | null;
+//   login: (email: string, password: string) => Promise<void>;
+//   logout: () => void;
+//   registerUser: () => void;
+//   isLoggedIn: boolean;
+// }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+// const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+// export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+//   children,
+// }) => {
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const login = async (email: string): Promise<void> => {
-    // Add your login logic here
-    console.log(`Logging in with email: ${email}`);
-    setIsLoggedIn(true);
-  };
+//   const login = async (email: string, password: string): Promise<void> => {
+//     // Add your login logic here
+//     console.log(`Logging in with email: ${email}`);
+//     setIsLoggedIn(true);
+//   };
 
-  const logout = (): void => {
-    // Add your logout logic here
-    setIsLoggedIn(false);
-  };
+//   const logout = (): void => {
+//     // Add your logout logic here
+//     setIsLoggedIn(false);
+//   };
 
-  return (
-    <AuthContext.Provider
-      value={{ user: null, login, logout, registerUser: () => {}, isLoggedIn }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-};
+//   console.log("Rendering AuthProvider in authContext.tsx");
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
+//   return (
+//     <AuthContext.Provider
+//       value={{ user: null, login, logout, registerUser: () => {}, isLoggedIn }}
+//     >
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export const useAuth = () => {
+//   const context = useContext(AuthContext);
+//   if (!context) {
+//     console.log("useAuth: AuthContext is undefined");
+//     throw new Error("useAuth must be used within an AuthProvider");
+//   }
+//   console.log("useAuth: AuthContext is defined");
+//   return context;
+// };
