@@ -11,21 +11,17 @@ import LoginPage from "./login/page";
 export default function Home() {
   const { theme } = useTheme();
   const [isClient, setIsClient] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn] = useState(false);
   const bgColor = theme === "dark" ? "bg-black" : "bg-gray-50";
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
   if (!isClient) return null;
 
   if (!isLoggedIn) {
-    return <LoginPage onLogin={handleLogin} />;
+    return <LoginPage params={{ slug: "" }} searchParams={{}} />;
   }
 
   return (

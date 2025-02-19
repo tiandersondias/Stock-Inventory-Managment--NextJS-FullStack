@@ -3,11 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-interface LoginPageProps {
-  onLogin: () => void;
+interface PageProps {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
+const LoginPage: React.FC<PageProps> = () => {
+  const handleLogin = () => {
+    // Handle login logic here
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <Card className="w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-lg">
@@ -16,7 +21,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           <Input type="email" placeholder="Email" className="w-full" />
           <Input type="password" placeholder="Password" className="w-full" />
         </div>
-        <Button onClick={onLogin} className="w-full mt-4">
+        <Button onClick={handleLogin} className="w-full mt-4">
           Login
         </Button>
       </Card>
