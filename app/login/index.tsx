@@ -8,7 +8,10 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const LoginPage: React.FC<PageProps> = ({ params, searchParams }) => {
+const LoginPage: React.FC<PageProps> = ({
+  params: _params,
+  searchParams: _searchParams,
+}) => {
   const handleLogin = () => {
     // Handle login logic here
   };
