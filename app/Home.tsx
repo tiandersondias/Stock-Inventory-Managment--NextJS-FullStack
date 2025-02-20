@@ -6,27 +6,17 @@ import { Card } from "@/components/ui/card";
 import AppTable from "./AppTable/AppTable";
 import { useTheme } from "next-themes";
 import { DeleteDialog } from "./DeleteDialog";
-import LoginPage from "./login";
 
 export default function Home() {
   const { theme } = useTheme();
   const [isClient, setIsClient] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bgColor = theme === "dark" ? "bg-black" : "bg-gray-50";
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
   if (!isClient) return null;
-
-  if (!isLoggedIn) {
-    return <LoginPage params={{ slug: "" }} searchParams={{}} />;
-  }
 
   return (
     <div className={`poppins p-5 ${bgColor} border w-full min-h-screen`}>

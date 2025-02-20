@@ -1,26 +1,15 @@
+"use client";
+
 import React from "react";
-import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-interface PageProps {
-  params: { slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+interface LoginPageProps {
+  onLogin: () => void;
 }
 
-const Page: React.FC<PageProps> = ({
-  params: _params,
-  searchParams: _searchParams,
-}) => {
-  const router = useRouter();
-
-  const handleLogin = () => {
-    // Handle login logic here
-    // For now, let's navigate to the homepage
-    router.push("/");
-  };
-
+const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <Card className="w-full max-w-md p-8 space-y-6 bg-white shadow-md rounded-lg">
@@ -31,15 +20,15 @@ const Page: React.FC<PageProps> = ({
           <Input
             type="email"
             placeholder="Email"
-            className="w-full text-black placeholder-gray-500"
+            className="text-black placeholder-gray-500"
           />
           <Input
             type="password"
             placeholder="Password"
-            className="w-full text-black placeholder-gray-500"
+            className="text-black placeholder-gray-500"
           />
         </div>
-        <Button onClick={handleLogin} className="w-full mt-4">
+        <Button onClick={onLogin} className="w-full mt-4">
           Login
         </Button>
       </Card>
@@ -47,4 +36,4 @@ const Page: React.FC<PageProps> = ({
   );
 };
 
-export default Page;
+export default LoginPage;
