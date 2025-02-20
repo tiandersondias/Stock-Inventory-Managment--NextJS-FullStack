@@ -54,11 +54,11 @@ export default function AppTable() {
   }, [loadProducts]);
 
   return (
-    <Card className="mt-12  flex flex-col shadow-none  poppins border-none ">
-      <CardHeader className="flex justify-between">
-        <div className="flex justify-between items-center">
-          <div className="">
-            <CardTitle className="font-bold text-[23px] ">Products</CardTitle>
+    <Card className="mt-12 flex flex-col shadow-none poppins border-none">
+      <CardHeader className="flex flex-col sm:flex-row justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-center w-full sm:w-auto">
+          <div className="flex flex-col items-start sm:items-center">
+            <CardTitle className="font-bold text-[23px]">Products</CardTitle>
             <p className="text-sm text-slate-600">
               {allProducts.length} products
             </p>

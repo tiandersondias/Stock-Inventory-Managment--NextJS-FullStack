@@ -90,6 +90,7 @@ export function DeleteDialog() {
     deleteProduct,
   } = useProductStore();
   const { toast } = useToast();
+
   async function deleteProductFx() {
     if (selectedProduct) {
       const result = await deleteProduct(selectedProduct.id);
@@ -109,25 +110,29 @@ export function DeleteDialog() {
         setOpenDialog(open);
       }}
     >
-      <AlertDialogContent className="p-8">
+      <AlertDialogContent className="p-4 sm:p-8">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-xl">
+          <AlertDialogTitle className="text-lg sm:text-xl">
             Are you absolutely sure?
           </AlertDialogTitle>
-          <AlertDialogDescription className="mt-2">
+          <AlertDialogDescription className="mt-2 text-sm sm:text-base">
             This action cannot be undone. This will permanently delete the
             product.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter className="mt-8">
+        <AlertDialogFooter className="mt-4 sm:mt-8 flex flex-col sm:flex-row gap-2 sm:gap-4">
           <AlertDialogCancel
             onClick={() => {
               setSelectedProduct(null);
             }}
+            className="w-full sm:w-auto"
           >
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteProductFx()}>
+          <AlertDialogAction
+            onClick={() => deleteProductFx()}
+            className="w-full sm:w-auto"
+          >
             {isLoading ? "deleting..." : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>

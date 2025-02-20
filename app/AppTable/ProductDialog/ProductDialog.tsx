@@ -481,7 +481,7 @@ export default function ProductDialog() {
       <DialogTrigger asChild>
         <Button className="h-10 font-semibold">+Add Product</Button>
       </DialogTrigger>
-      <DialogContent className="p-7 px-8 poppins">
+      <DialogContent className="p-4 sm:p-7 sm:px-8 poppins max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-[22px] ">
             {selectedProduct ? "Edit Product" : "Add Product"}
@@ -494,30 +494,30 @@ export default function ProductDialog() {
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-2 mt-1">
-              <div className="grid grid-cols-2 gap-7">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7">
                 <ProductName onSelectedIcon={onSelectedIcon} />
                 <SKU />
               </div>
 
-              <div className="grid grid-cols-2 gap-5 items-start mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 items-start mt-4">
                 <Supplier />
                 <ProductCategory
                   selectedCategory={selectedCategory}
                   setSelectedCategory={setSelectedCategory}
                 />
               </div>
-              <div className="mt-3 grid grid-cols-1 gap-7">
+              <div className="mt-3 grid grid-cols-1 gap-4 sm:gap-7">
                 <Status
                   selectedTab={selectedTab}
                   setSelectedTab={setSelectedTab}
                 />
               </div>
-              <div className="mt-3 grid grid-cols-2 gap-7">
+              <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-7">
                 <Quantity />
                 <Price />
               </div>
             </div>
-            <DialogFooter className="mt-9 mb-4 flex items-center gap-4 ">
+            <DialogFooter className="mt-9 mb-4 flex flex-col sm:flex-row items-center gap-4 ">
               <DialogClose
                 ref={dialogCloseRef}
                 onClick={() => {
@@ -525,12 +525,15 @@ export default function ProductDialog() {
                 }}
                 asChild
               >
-                <Button variant={"secondary"} className="h-11 px-11 ">
+                <Button
+                  variant={"secondary"}
+                  className="h-11 w-full sm:w-auto px-11"
+                >
                   Cancel
                 </Button>
               </DialogClose>
 
-              <Button className="h-11 px-11">
+              <Button className="h-11 w-full sm:w-auto px-11">
                 {isLoading
                   ? "loading..."
                   : `${selectedProduct ? "Edit Product" : "Add Product"}`}

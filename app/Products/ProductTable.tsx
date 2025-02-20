@@ -484,7 +484,6 @@ export function ProductTable<TData, TValue>({
     setSorting([
       {
         id: "createdAt",
-
         desc: true,
       },
     ]);
@@ -538,8 +537,8 @@ export function ProductTable<TData, TValue>({
 
   return (
     <div className="poppins">
-      <div className="flex flex-col gap-3 mb-8 mt-6 ">
-        <div className="flex items-center justify-between ">
+      <div className="flex flex-col gap-3 mb-8 mt-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <Input
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
@@ -548,7 +547,7 @@ export function ProductTable<TData, TValue>({
             placeholder="Search by name..."
             className="max-w-sm h-10"
           />
-          <div className="flex items-center gap-4 ">
+          <div className="flex items-center gap-4">
             <StatusDropDown
               selectedStatuses={selectedStatuses}
               setSelectedStatuses={setSelectedStatuses}
@@ -632,14 +631,14 @@ export function ProductTable<TData, TValue>({
         </Table>
       </div>
 
-      <div className="flex items-center justify-between mt-5">
+      <div className="flex flex-col sm:flex-row items-center justify-between mt-5 gap-4">
         <PaginationSelection
           pagination={pagination}
           setPagination={setPagination}
         />
 
         <div className="flex gap-6 items-center">
-          <span className="text-sm  text-gray-500">
+          <span className="text-sm text-gray-500">
             Page {pagination.pageIndex + 1} of {table.getPageCount()}
           </span>
           <div className="flex items-center justify-end space-x-2 py-4">
@@ -705,7 +704,7 @@ function FilterArea({
   setSelectedCategories: Dispatch<SetStateAction<string[]>>;
 }) {
   return (
-    <div className="flex gap-3 poppins ">
+    <div className="flex flex-col sm:flex-row gap-3 poppins">
       {/* status */}
       {selectedStatuses.length > 0 && (
         <div className="border-dashed border rounded-sm p-1 flex gap-2 items-center px-2 text-sm">
@@ -732,7 +731,7 @@ function FilterArea({
       {/* category */}
       {selectedCategories.length > 0 && (
         <div className="border-dashed border rounded-sm p-1 flex gap-2 items-center px-2 text-sm">
-          <span className="text-gray-600">category</span>
+          <span className="text-gray-600">Category</span>
           <Separator orientation="vertical" />
           <div className="flex gap-2 items-center">
             {selectedCategories.length < 3 ? (

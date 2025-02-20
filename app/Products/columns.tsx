@@ -251,13 +251,13 @@ const SortableHeader: React.FC<SortableHeaderProps> = ({ column, label }) => {
     <DropdownMenu>
       <DropdownMenuTrigger className="" asChild>
         <div
-          className={`flex items-start py-[14px] select-none cursor-pointer  p-2 gap-1 ${
+          className={`flex items-start py-[14px] select-none cursor-pointer p-2 gap-1 ${
             isSorted && "text-primary"
           }`}
           aria-label={`Sort by ${label}`}
         >
           {label}
-          <SortingIcon className=" h-4 w-4" />
+          <SortingIcon className="h-4 w-4" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" side="bottom">

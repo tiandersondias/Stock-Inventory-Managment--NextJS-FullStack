@@ -10,6 +10,7 @@ import {
 
 import { Dispatch, SetStateAction } from "react";
 import { PaginationType } from "./ProductTable";
+
 export default function PaginationSelection({
   pagination,
   setPagination,
@@ -18,8 +19,8 @@ export default function PaginationSelection({
   setPagination: Dispatch<SetStateAction<PaginationType>>;
 }) {
   return (
-    <div className="flex  items-center gap-3  ">
-      <div className="text-gray-500 text-sm ">Rows per page</div>
+    <div className="flex flex-col sm:flex-row items-center gap-3">
+      <div className="text-gray-500 text-sm">Rows per page</div>
       <Select
         value={pagination.pageSize.toString()}
         onValueChange={(value) =>
@@ -29,7 +30,7 @@ export default function PaginationSelection({
           }))
         }
       >
-        <SelectTrigger className="border rounded-md px-2  w-14">
+        <SelectTrigger className="border rounded-md px-2 w-full sm:w-14">
           <SelectValue placeholder={pagination.pageSize.toString()} />
         </SelectTrigger>
         <SelectContent>

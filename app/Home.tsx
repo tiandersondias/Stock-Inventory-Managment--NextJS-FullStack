@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <div className={`poppins p-5 ${bgColor} border w-full min-h-screen`}>
-      <Card className="flex flex-col shadow-none p-5">
+      <Card className="flex flex-col shadow-none p-4 sm:p-5 space-y-4">
         <DeleteDialog />
         <AppHeader />
         <AppTable />

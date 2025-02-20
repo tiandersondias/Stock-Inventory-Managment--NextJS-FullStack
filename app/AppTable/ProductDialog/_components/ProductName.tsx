@@ -49,6 +49,7 @@ import { MdError } from "react-icons/md";
 import { IconSelector } from "../IconSelector";
 import { useFormContext } from "react-hook-form";
 import { ReactNode } from "react";
+
 export default function ProductName({
   onSelectedIcon,
 }: {
