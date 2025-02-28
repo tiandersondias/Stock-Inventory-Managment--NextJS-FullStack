@@ -7,7 +7,7 @@ import LoginPage from "../components/LoginPage";
 import { useAuth } from "./authContext";
 
 interface PageProps {
-  params?: { [key: string]: any };
+  params?: Promise<any>;
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
