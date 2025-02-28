@@ -33,7 +33,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    localStorage.removeItem("token"); // Remove token for the first run
     const token = localStorage.getItem("token");
     if (token) {
       // Optionally, you can verify the token here
