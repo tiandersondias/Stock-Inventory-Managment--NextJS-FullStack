@@ -7,8 +7,8 @@ import LoginPage from "../components/LoginPage";
 import { useAuth } from "./authContext";
 
 interface PageProps {
-  params: { [key: string]: any };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ [key: string]: any }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const PageContent: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
