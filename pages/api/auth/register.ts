@@ -16,7 +16,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method !== "POST") {
-    return res.status(405).end();
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   try {
@@ -40,9 +40,9 @@ export default async function handler(
     res.status(201).json({ id: user.id, name: user.name, email: user.email });
   } catch (error) {
     if (error instanceof Error) {
-      res.status(400).json({ error: error.message });
+      res.status(500).json({ error: error.message });
     } else {
-      res.status(400).json({ error: "An unknown error occurred" });
+      res.status(500).json({ error: "An unknown error occurred" });
     }
   }
 }
