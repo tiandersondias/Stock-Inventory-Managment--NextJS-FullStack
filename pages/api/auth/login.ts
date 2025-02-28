@@ -22,6 +22,7 @@ export default async function handler(
 
   try {
     const { email, password } = loginSchema.parse(req.body);
+    console.log("Parsed request body:", { email, password });
 
     const user = await prisma.user.findUnique({
       where: { email },
@@ -39,6 +40,7 @@ export default async function handler(
     }
 
     const token = generateToken(user.id);
+    console.log("Generated token:", token);
 
     res.status(200).json({
       token,

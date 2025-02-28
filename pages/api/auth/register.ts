@@ -23,6 +23,7 @@ export default async function handler(
 
   try {
     const { name, email, password } = registerSchema.parse(req.body);
+    console.log("Parsed request body:", { name, email, password });
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
@@ -31,6 +32,7 @@ export default async function handler(
     }
 
     const hashedPassword = await hashPassword(password);
+    console.log("Hashed password:", hashedPassword);
 
     const user = await prisma.user.create({
       data: {
