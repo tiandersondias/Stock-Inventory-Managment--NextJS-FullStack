@@ -7,7 +7,7 @@
       "error",
       {
         "varsIgnorePattern": "^handleLogin$|^params$|^searchParams$",
-        "argsIgnorePattern": "^_"
+        "argsIgnorePattern": "^handleLogin$|^params$|^searchParams$|^_"
       }
     ]
   },
