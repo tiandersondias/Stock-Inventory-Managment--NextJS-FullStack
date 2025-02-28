@@ -1,10 +1,12 @@
-## Stock Inventory - NextJS
+## Stock Inventory Managment - NextJS
+
+<img width="1213" alt="Screenshot 2025-02-20 at 15 55 47" src="https://github.com/user-attachments/assets/23216dcd-c18d-4060-abcd-8249e8bbf8b7" /><img width="200" alt="Screenshot 2025-02-20 at 15 56 17" src="https://github.com/user-attachments/assets/20b19c6f-9884-4b97-b667-852053792704" /><img width="269" alt="Screenshot 2025-02-20 at 15 56 25" src="https://github.com/user-attachments/assets/3e5b91a0-75bc-45b0-b5bb-5575f970ae48" /><img width="1201" alt="Screenshot 2025-02-20 at 15 56 41" src="https://github.com/user-attachments/assets/e2be1491-349b-485b-bcc5-d0050f238252" /><img width="878" alt="Screenshot 2025-02-20 at 15 56 59" src="https://github.com/user-attachments/assets/388470af-f505-4dae-906f-7ad9626d1e38" /><img width="1165" alt="Screenshot 2025-02-20 at 15 57 19" src="https://github.com/user-attachments/assets/471d9997-071b-4d50-80f0-c5582132b39d" />
 
 Stock Inventory is a ReactJS-based inventory management application designed to help you manage your product stock efficiently. This application includes features such as product listing, adding new products, editing existing products, and filtering products based on various criteria.
 
 _NOTE: This project is still under development and coming up more functionalities and features soon using mongodb, prisma, user validation with jwt, encryption etc_
 
-**Online-Live: **
+**Online-Live: ** https://stockly-inventory.vercel.app/
 
 ## Features
 

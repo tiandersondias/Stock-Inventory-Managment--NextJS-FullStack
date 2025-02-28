@@ -1,35 +1,34 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Home from "./Home";
-import LoginPage from "./login";
+import LoginPage from "./login/page";
+import { useAuth } from "./authContext";
 
-const Page: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const PageContent: React.FC = () => {
   const router = useRouter();
+  const { isLoggedIn: authIsLoggedIn } = useAuth();
 
   useEffect(() => {
-    // Check if the user is logged in
-    const loggedIn = localStorage.getItem("isLoggedIn");
-    if (loggedIn) {
-      setIsLoggedIn(true);
+    if (authIsLoggedIn) {
+      router.push("/");
     }
-  }, []);
+  }, [authIsLoggedIn, router]);
 
   const handleLogin = () => {
-    // Simulate login logic
-    localStorage.setItem("isLoggedIn", "true");
-    setIsLoggedIn(true);
-    // Navigate to the homepage
     router.push("/");
   };
 
-  if (isLoggedIn) {
+  if (authIsLoggedIn) {
     return <Home />;
   }
 
   return <LoginPage onLogin={handleLogin} />;
+};
+
+const Page: React.FC = () => {
+  return <PageContent />;
 };
 
 export default Page;

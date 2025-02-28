@@ -86,14 +86,14 @@ export function ProductCategory({
   const categories = [
     "Accessories",
     "Earbuds",
-    "Phone Cover",
-    "Phone Case",
-    "Charger Cable",
-    "Charger Adapter",
-    "Screen Protector",
-    "Smart Watch",
+    "PhoneCover",
+    "PhoneCase",
+    "ChargerCable",
+    "ChargerAdapter",
+    "ScreenProtector",
+    "SmartWatch",
     "Headphone",
-    "Bluetooth Speaker",
+    "BluetoothSpeaker",
     "Others",
   ];
 

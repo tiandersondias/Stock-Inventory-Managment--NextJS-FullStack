@@ -279,6 +279,7 @@ import { FaBed, FaHeadphones, FaTv } from "react-icons/fa";
 import { IoTabletPortrait } from "react-icons/io5";
 import { GiSofa } from "react-icons/gi";
 
+/*
 export const products: Product[] = [
   {
     id: nanoid(),
@@ -333,7 +334,7 @@ export const products: Product[] = [
     name: "Microwave Oven",
     supplier: "HomeGoods Co.",
     sku: "MO202",
-    category: "Smart Watch",
+    category: "SmartWatch",
     status: "Stock Low",
     quantityInStock: 15,
     price: 120.0,
@@ -357,7 +358,7 @@ export const products: Product[] = [
     name: "Refrigerator",
     supplier: "HomeGoods Co.",
     sku: "RF404",
-    category: "Bluetooth Speaker",
+    category: "BluetoothSpeaker",
     status: "Stock Out",
     quantityInStock: 8,
     price: 799.99,
@@ -441,7 +442,7 @@ export const products: Product[] = [
     name: "Smart TV",
     supplier: "TechWorld",
     sku: "ST408",
-    category: "Phone Cover",
+    category: "PhoneCover",
     status: "Stock Low",
     quantityInStock: 22,
     price: 599.99,
@@ -453,7 +454,7 @@ export const products: Product[] = [
     name: "Dining Table",
     supplier: "FurnitureGalore",
     sku: "DT509",
-    category: "Phone Case",
+    category: "PhoneCase",
     status: "Available",
     quantityInStock: 8,
     price: 399.99,
@@ -465,7 +466,7 @@ export const products: Product[] = [
     name: "Wireless Earbuds",
     supplier: "AudioTech",
     sku: "WE610",
-    category: "Charger Cable",
+    category: "ChargerCable",
     status: "Stock Out",
     quantityInStock: 45,
     price: 99.99,
@@ -477,7 +478,7 @@ export const products: Product[] = [
     name: "Wall Decor",
     supplier: "HomeGoods Co.",
     sku: "WD711",
-    category: "Charger Adapter",
+    category: "ChargerAdapter",
     status: "Stock Low",
     quantityInStock: 18,
     price: 29.99,
@@ -489,7 +490,7 @@ export const products: Product[] = [
     name: "Outdoor Furniture Set",
     supplier: "FurnitureGalore",
     sku: "OF812",
-    category: "Screen Protector",
+    category: "ScreenProtector",
     status: "Available",
     quantityInStock: 12,
     price: 799.99,
@@ -497,3 +498,5 @@ export const products: Product[] = [
     createdAt: new Date("2024-08-11"),
   },
 ];
+*/
+export const products: Product[] = [];

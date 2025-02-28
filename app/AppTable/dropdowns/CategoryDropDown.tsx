@@ -158,14 +158,14 @@ type CategoriesDropDownProps = {
 const categories: Category[] = [
   { value: "accessories", label: "Accessories" },
   { value: "earbuds", label: "Earbuds" },
-  { value: "phone-cover", label: "Phone Cover" },
-  { value: "phone-case", label: "Phone Case" },
-  { value: "charger-cable", label: "Charger Cable" },
-  { value: "charger-adapter", label: "Charger Adapter" },
-  { value: "screen-protector", label: "Screen Protector" },
-  { value: "smart-watch", label: "Smart Watch" },
+  { value: "phone-cover", label: "PhoneCover" },
+  { value: "phone-case", label: "PhoneCase" },
+  { value: "charger-cable", label: "ChargerCable" },
+  { value: "charger-adapter", label: "ChargerAdapter" },
+  { value: "screen-protector", label: "ScreenProtector" },
+  { value: "smart-watch", label: "SmartWatch" },
   { value: "headphone", label: "Headphone" },
-  { value: "bluetooth speaker", label: "Bluetooth Speaker" },
+  { value: "BluetoothSpeaker", label: "BluetoothSpeaker" },
   { value: "others", label: "Others" },
 ];
 
