@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "DATABASE_URL": "mongodb+srv://arnobt78:arnobt78@clusterstockly.ztxew.mongodb.net/stockly?retryWrites=true&w=majority&appName=ClusterStockly"
+    }
+  }
+}
