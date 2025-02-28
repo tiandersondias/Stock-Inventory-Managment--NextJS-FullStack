@@ -8,7 +8,11 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link"; // Import Link component
 import { toast } from "react-toastify"; // Import toast
 
-const LoginPage: React.FC<{ onLogin?: () => void }> = ({ onLogin }) => {
+interface LoginPageProps {
+  onLogin?: () => void;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
