@@ -15,6 +15,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method !== "POST") {
+    console.error("Method Not Allowed");
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
@@ -26,11 +27,13 @@ export default async function handler(
       select: { id: true, name: true, email: true, password: true },
     });
     if (!user) {
+      console.error("Invalid email or password");
       return res.status(400).json({ error: "Invalid email or password" });
     }
 
     const isPasswordValid = await comparePassword(password, user.password);
     if (!isPasswordValid) {
+      console.error("Invalid email or password");
       return res.status(400).json({ error: "Invalid email or password" });
     }
 
@@ -41,6 +44,7 @@ export default async function handler(
       user: { id: user.id, name: user.name, email: user.email },
     });
   } catch (error) {
+    console.error("Login error:", error);
     if (error instanceof Error) {
       res.status(500).json({ error: error.message });
     } else {

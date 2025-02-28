@@ -16,6 +16,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method !== "POST") {
+    console.error("Method Not Allowed");
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
@@ -24,6 +25,7 @@ export default async function handler(
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
+      console.error("User already exists");
       return res.status(400).json({ error: "User already exists" });
     }
 
@@ -39,6 +41,7 @@ export default async function handler(
 
     res.status(201).json({ id: user.id, name: user.name, email: user.email });
   } catch (error) {
+    console.error("Register error:", error);
     if (error instanceof Error) {
       res.status(500).json({ error: error.message });
     } else {
