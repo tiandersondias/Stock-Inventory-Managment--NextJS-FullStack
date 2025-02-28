@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Home from "./Home";
-import LoginPage from "./login/page";
+import LoginPage from "../components/LoginPage";
 import { useAuth } from "./authContext";
 
 interface PageProps {
