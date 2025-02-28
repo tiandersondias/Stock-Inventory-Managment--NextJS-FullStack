@@ -6,7 +6,12 @@ import Home from "./Home";
 import LoginPage from "./login/page";
 import { useAuth } from "./authContext";
 
-const PageContent: React.FC = () => {
+interface PageProps {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+const PageContent: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   const router = useRouter();
   const { isLoggedIn: authIsLoggedIn } = useAuth();
 
@@ -16,19 +21,22 @@ const PageContent: React.FC = () => {
     }
   }, [authIsLoggedIn, router]);
 
-  const handleLogin = () => {
-    router.push("/");
-  };
-
   if (authIsLoggedIn) {
     return <Home />;
   }
 
-  return <LoginPage onLogin={handleLogin} />;
+  return <LoginPage onLogin={onLogin} />;
 };
 
-const Page: React.FC = () => {
-  return <PageContent />;
+const Page: React.FC<PageProps> = ({
+  params: _params,
+  searchParams: _searchParams,
+}) => {
+  const handleLogin = () => {
+    console.log("User logged in");
+  };
+
+  return <PageContent onLogin={handleLogin} />;
 };
 
 export default Page;
