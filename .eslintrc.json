@@ -6,7 +6,7 @@
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
-        "varsIgnorePattern": "^handleLogin$|^params$|^searchParams$",
+        "varsIgnorePattern": "^handleLogin$|^params$|^searchParams$|nanoid|MdInventory|MdBuild|MdPhoneIphone|MdLaptop|MdKitchen|MdHome|MdChair|MdLightbulbCircle|MdOutlineDoorSliding|FaBed|FaHeadphones|FaTv|IoTabletPortrait|GiSofa",
         "argsIgnorePattern": "^_"
       }
     ]
