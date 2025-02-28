@@ -8,7 +8,11 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link"; // Import Link component
 import { toast } from "react-toastify"; // Import toast
 
-const LoginPage: React.FC = () => {
+interface LoginPageProps {
+  onLogin?: () => void;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
@@ -19,7 +23,11 @@ const LoginPage: React.FC = () => {
     try {
       await login(email, password);
       toast.success("Login successful!");
-      router.push("/"); // Navigate to the main page after successful login
+      if (onLogin) {
+        onLogin();
+      } else {
+        router.push("/"); // Navigate to the main page after successful login
+      }
     } catch {
       toast.error("Failed to login. Please check your credentials.");
     }
