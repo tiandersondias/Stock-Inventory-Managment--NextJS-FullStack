@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[context.production.environment]
+  DATABASE_URL = "mongodb+srv://arnobt78:arnobt78@clusterstockly.ztxew.mongodb.net/stockly?retryWrites=true&w=majority&appName=ClusterStockly"
