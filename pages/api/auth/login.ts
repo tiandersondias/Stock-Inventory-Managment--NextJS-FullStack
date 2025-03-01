@@ -30,13 +30,13 @@ export default async function handler(
     });
     if (!user) {
       console.error("Invalid email or password");
-      return res.status(400).json({ error: "Invalid email or password" });
+      return res.status(401).json({ error: "Invalid email or password" });
     }
 
     const isPasswordValid = await comparePassword(password, user.password);
     if (!isPasswordValid) {
       console.error("Invalid email or password");
-      return res.status(400).json({ error: "Invalid email or password" });
+      return res.status(401).json({ error: "Invalid email or password" });
     }
 
     const token = generateToken(user.id);
