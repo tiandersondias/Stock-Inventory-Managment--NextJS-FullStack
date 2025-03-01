@@ -24,10 +24,15 @@ export default async function handler(
     const { email, password } = loginSchema.parse(req.body);
     console.log("Parsed request body:", { email, password });
 
+    console.log("Starting database query...");
+    const start = Date.now();
     const user = await prisma.user.findUnique({
       where: { email },
       select: { id: true, name: true, email: true, password: true },
     });
+    const end = Date.now();
+    console.log(`Database query completed in ${end - start}ms`);
+
     if (!user) {
       console.error("Invalid email or password");
       return res.status(401).json({ error: "Invalid email or password" });
