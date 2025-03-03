@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface ProductsDropDownProps {
   row: {
@@ -29,14 +29,14 @@ export default function ProductsDropDown({ row }: ProductsDropDownProps) {
 
     const result = await addProduct(productToCopy);
     if (result.success) {
-      router.reload();
+      router.refresh(); // Use router.refresh() instead of router.reload()
     }
   };
 
   const handleDeleteProduct = async () => {
     const result = await deleteProduct(row.original.id);
     if (result.success) {
-      router.reload();
+      router.refresh(); // Use router.refresh() instead of router.reload()
     }
   };
 

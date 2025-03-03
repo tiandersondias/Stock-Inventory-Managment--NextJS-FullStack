@@ -27,7 +27,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { Product } from "@/app/Products/columns";
 import { useProductStore } from "@/app/useProductStore";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/router"; // Import useRouter
+import { useRouter } from "next/navigation"; // Import useRouter
 
 // Import the missing icons
 import { FaCheck } from "react-icons/fa";
@@ -171,7 +171,7 @@ export default function ProductDialog() {
           description: "Product added successfully!",
         });
         dialogCloseRef.current?.click();
-        router.reload(); // Reload the page after adding a product
+        router.refresh(); // Use router.refresh() instead of router.reload()
       }
     } else {
       const productToUpdate: Product = {
@@ -194,7 +194,7 @@ export default function ProductDialog() {
           title: "Success",
           description: "Product updated successfully!",
         });
-        router.reload(); // Reload the page after updating a product
+        router.refresh(); // Use router.refresh() instead of router.reload()
       } else {
         toast({
           title: "Error",
