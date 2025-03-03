@@ -7,7 +7,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-//import { nanoid } from "nanoid";
 import { useRouter } from "next/router";
 
 interface ProductsDropDownProps {
