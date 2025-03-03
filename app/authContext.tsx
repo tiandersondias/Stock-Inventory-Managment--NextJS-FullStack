@@ -66,6 +66,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       console.error("Failed to login:", error.error);
       localStorage.setItem("isAuth", "false");
       localStorage.setItem("isLoggedIn", "false");
+      throw new Error(error.error);
     }
   };
 

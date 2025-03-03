@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Home from "./Home";
 import LoginPage from "../components/LoginPage";
 import { useAuth } from "./authContext";
+import Loading from "../components/Loading"; // Import Loading component
 
 interface PageProps {
   params: Promise<{ [key: string]: any }>;
@@ -49,7 +50,7 @@ const Page: React.FC<PageProps> = ({ params, searchParams }) => {
   };
 
   if (!resolvedParams || !resolvedSearchParams) {
-    return <div>Loading...</div>;
+    return <Loading />; // Use Loading component
   }
 
   return <PageContent onLogin={handleLogin} />;

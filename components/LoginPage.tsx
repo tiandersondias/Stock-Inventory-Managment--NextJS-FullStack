@@ -28,8 +28,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
       } else {
         router.push("/"); // Navigate to the main page after successful login
       }
-    } catch {
-      toast.error("Failed to login. Please check your credentials.");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(`Failed to login: ${error.message}`);
+      } else {
+        toast.error("Failed to login. Please check your credentials.");
+      }
     }
   };
 

@@ -5,10 +5,11 @@ import { products } from "./Products/productData";
 //structure of the overall state
 interface ProductState {
   allProducts: Product[];
+  categories: string[];
+  suppliers: string[];
   isLoading: boolean;
   openDialog: boolean;
   setOpenDialog: (openDialog: boolean) => void;
-  //
   openProductDialog: boolean;
   setOpenProductDialog: (openProductDialog: boolean) => void;
   selectedProduct: Product | null;
@@ -17,11 +18,19 @@ interface ProductState {
   loadProducts: () => Promise<void>;
   addProduct: (product: Product) => Promise<{ success: boolean }>;
   updateProduct: (updatedProduct: Product) => Promise<{ success: boolean }>;
-  deleteProduct: (productId: string) => Promise<{ success: boolean }>;
+  deleteProduct: (productId: number) => Promise<{ success: boolean }>;
+  addCategory: (category: string) => void;
+  editCategory: (oldCategory: string, newCategory: string) => void;
+  deleteCategory: (category: string) => void;
+  addSupplier: (supplier: string) => void;
+  editSupplier: (oldSupplier: string, newSupplier: string) => void;
+  deleteSupplier: (supplier: string) => void;
 }
 
 export const useProductStore = create<ProductState>((set) => ({
   allProducts: [],
+  categories: ["Test Category"],
+  suppliers: ["Test Supplier"],
   isLoading: false,
   selectedProduct: null,
   openDialog: false,
@@ -52,21 +61,15 @@ export const useProductStore = create<ProductState>((set) => ({
       set({ isLoading: false });
     }
   },
-
   updateProduct: async (updatedProduct: Product) => {
     set({ isLoading: true });
     try {
-      // Simulate the update process with a delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log(updatedProduct);
-
-      // Update the product in the state
       set((state) => ({
         allProducts: state.allProducts.map((product) =>
           product.id === updatedProduct.id ? updatedProduct : product
         ),
       }));
-
       return { success: true };
     } finally {
       set({ isLoading: false });
@@ -74,13 +77,10 @@ export const useProductStore = create<ProductState>((set) => ({
       set({ selectedProduct: null });
     }
   },
-
-  deleteProduct: async (productId: string) => {
+  deleteProduct: async (productId: number) => {
     set({ isLoading: true });
     try {
-      // Simulate the deletion process with a delay
       await new Promise((resolve) => setTimeout(resolve, 1789));
-
       set((state) => ({
         allProducts: state.allProducts.filter(
           (product) => product.id !== productId
@@ -92,6 +92,40 @@ export const useProductStore = create<ProductState>((set) => ({
       set({ openDialog: false });
       set({ selectedProduct: null });
     }
+  },
+  addCategory: (category: string) => {
+    set((state) => ({
+      categories: [...state.categories, category].sort(),
+    }));
+  },
+  editCategory: (oldCategory: string, newCategory: string) => {
+    set((state) => ({
+      categories: state.categories
+        .map((category) => (category === oldCategory ? newCategory : category))
+        .sort(),
+    }));
+  },
+  deleteCategory: (category: string) => {
+    set((state) => ({
+      categories: state.categories.filter((cat) => cat !== category).sort(),
+    }));
+  },
+  addSupplier: (supplier: string) => {
+    set((state) => ({
+      suppliers: [...state.suppliers, supplier].sort(),
+    }));
+  },
+  editSupplier: (oldSupplier: string, newSupplier: string) => {
+    set((state) => ({
+      suppliers: state.suppliers
+        .map((supplier) => (supplier === oldSupplier ? newSupplier : supplier))
+        .sort(),
+    }));
+  },
+  deleteSupplier: (supplier: string) => {
+    set((state) => ({
+      suppliers: state.suppliers.filter((sup) => sup !== supplier).sort(),
+    }));
   },
 }));
 
