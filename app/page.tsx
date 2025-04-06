@@ -60,7 +60,7 @@
 
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Home from "./Home";
 import Login from "./login/page";
@@ -109,7 +109,11 @@ const Page: React.FC<PageProps> = ({ params, searchParams }) => {
     return <Loading />;
   }
 
-  return <PageContent />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <PageContent />
+    </Suspense>
+  );
 };
 
 export default Page;
