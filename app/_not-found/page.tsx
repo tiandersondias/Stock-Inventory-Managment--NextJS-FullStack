@@ -3,6 +3,8 @@
 import React, { Suspense } from "react";
 import Loading from "@/components/Loading";
 
+export const dynamic = "error"; // Mark this page as static to prevent dynamic rendering
+
 function NotFoundContent() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
