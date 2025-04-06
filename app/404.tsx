@@ -1,12 +1,6 @@
-"use client";
-
 import React from "react";
 
-export const dynamic = "error"; // Ensure static rendering
-export const revalidate = 0; // Disable ISR (Incremental Static Regeneration)
-export const fetchCache = "only-no-store"; // Prevent caching
-
-export default function NotFoundPage() {
+export default function Custom404() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-4xl font-bold">404 - Page Not Found</h1>
