@@ -147,7 +147,7 @@
 
 "use client";
 
-import React, { useEffect } from "react";
+//import React, { useEffect } from "react";
 import { CategoryDropDown } from "./AppTable/dropdowns/CategoryDropDown";
 import { StatusDropDown } from "./AppTable/dropdowns/StatusDropDown";
 import { SuppliersDropDown } from "./AppTable/dropdowns/SupplierDropDown";
