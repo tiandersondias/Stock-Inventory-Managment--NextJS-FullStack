@@ -1,4 +1,17 @@
 {
+  "name": "stocky",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "postinstall": "npx prisma generate",
+    "build": "npx prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma": "prisma",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev"
+  },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^5.1.6",
     "@hookform/resolvers": "^3.10.0",
@@ -56,11 +69,5 @@
     "prisma": "^6.4.1",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
-  },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
   }
 }

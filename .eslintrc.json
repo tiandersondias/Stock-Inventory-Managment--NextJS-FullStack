@@ -16,12 +16,7 @@
         "allowSingleExtends": true
       }
     ],
-    "@typescript-eslint/no-empty-object-type": [
-      "error",
-      {
-        "allow": "object"
-      }
-    ]
+    "@typescript-eslint/no-empty-object-type": "error" // Removed invalid "allow" property
   },
   "settings": {
     "import/resolver": {
