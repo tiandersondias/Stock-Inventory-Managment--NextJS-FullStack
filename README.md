@@ -162,13 +162,13 @@ model VerificationToken {
 ```bash
 git clone https://github.com/your-username/stockly.git
 cd stockly
-```plaintext
+```
 
 ## 2. Install Dependencies
 
 ```bash
 npm install
-```plaintext
+```
 
 ### Note
 
@@ -176,7 +176,7 @@ If you get error installing any npm dependency, it might be due to using Next.js
 
 ```bash
 npm install --force
-````
+```
 
 ## 3. Set Up Environment Variables
 
@@ -195,9 +195,7 @@ npm run dev
 
 ## 5. Open the Application
 
-Open your browser and navigate to `http://localhost:3000`.
-
----
+Open your browser and navigate to `http://localhost:3000`
 
 ## API Endpoints
 
