@@ -6,7 +6,7 @@ Stockly is a **ReactJS-based inventory management application** built with **Nex
 
 Stock Inventory is a NextJS-based inventory management application designed to help you manage your product stock efficiently. This application includes features such as product listing, adding new products, editing existing products, and filtering products based on various criteria using JWT, Prisma, MongoDB, and authMiddleware for authentication, validation, cookies and session management.
 
-### Note
+### Important Note
 
 This project is still under development and coming up with more functionalities and features soon using MongoDB, Prisma, user validation with JWT, encryption, etc.
 
@@ -74,34 +74,78 @@ This project is still under development and coming up with more functionalities 
 
 The database schema is managed using **Prisma** and stored in **MongoDB**. Below is an example of the schema:
 
-### User Schema
+## schema.prisma
 
-````json
-{
-  "id": "ObjectId",
-  "email": "string",
-  "password": "string (hashed)",
-  "createdAt": "Date",
-  "updatedAt": "Date"
+````prisma
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+model User {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  products  Product[]
+  categories Category[]
+  suppliers Supplier[]
+  sessions  Session[]
+}
+
+model Product {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  sku         String     @unique
+  price       Float
+  quantity    Int
+  status      String
+  createdAt   DateTime   @default(now())
+  userId      String     @db.ObjectId
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId  String     @db.ObjectId
+  category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  supplierId  String     @db.ObjectId
+  supplier    Supplier   @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  userId    String     @db.ObjectId
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products  Product[]
+}
+
+model Supplier {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  userId    String     @db.ObjectId
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products  Product[]
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @db.ObjectId
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+  sessionToken String   @unique
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
 }
 ```plaintext
-
-### Product Schema
-
-```json
-{
-  "id": "ObjectId",
-  "name": "string",
-  "sku": "string",
-  "categoryId": "ObjectId",
-  "supplierId": "ObjectId",
-  "price": "number",
-  "quantity": "number",
-  "status": "string",
-  "createdAt": "Date",
-  "updatedAt": "Date"
-}
-```
 
 ## Security
 
@@ -128,13 +172,13 @@ The database schema is managed using **Prisma** and stored in **MongoDB**. Below
 ```bash
 git clone https://github.com/your-username/stockly.git
 cd stockly
-```
+```plaintext
 
 ## 2. Install Dependencies
 
 ```bash
 npm install
-```
+```plaintext
 
 ### Note
 
@@ -142,7 +186,7 @@ If you get error installing any npm dependency, it might be due to using Next.js
 
 ```bash
 npm install --force
-```
+````
 
 ## 3. Set Up Environment Variables
 
@@ -198,7 +242,7 @@ Open your browser and navigate to `http://localhost:3000`.
 
 ## Project Structure
 
-```
+```plaintex
 stockly
 ├── app
 │   ├── AppHeader
@@ -250,4 +294,3 @@ stockly
 ├── README.md
 └── tsconfig.json
 ```
-````
