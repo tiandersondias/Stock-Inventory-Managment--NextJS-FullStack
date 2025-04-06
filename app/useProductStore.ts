@@ -64,7 +64,7 @@ export const useProductStore = create<ProductState>((set) => ({
     set({ isLoading: true }); // Set loading to true
     try {
       const response = await axiosInstance.get("/products");
-      set((state) => ({
+      set((_) => ({
         allProducts: response.data,
       }));
       console.log("Updated State with Products:", response.data);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -114,7 +115,7 @@ export default function AddProductDialog({
 
   const onSubmit = async (data: ProductFormData) => {
     setIsSubmitting(true); // Start loading
-    let status: Product["status"] = calculateStatus(data.quantity);
+    const status: Product["status"] = calculateStatus(data.quantity);
 
     try {
       if (!selectedProduct) {

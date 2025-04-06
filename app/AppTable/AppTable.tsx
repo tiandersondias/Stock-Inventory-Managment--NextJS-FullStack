@@ -9,7 +9,7 @@ import { useAuth } from "../authContext";
 import { useRouter } from "next/navigation";
 import FiltersAndActions from "../FiltersAndActions";
 import { PaginationType } from "../Products/PaginationSelection";
-import { ColumnFiltersState } from "@tanstack/react-table";
+//import { ColumnFiltersState } from "@tanstack/react-table";
 
 export default function AppTable() {
   const { allProducts, loadProducts, isLoading } = useProductStore();
