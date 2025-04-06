@@ -47,8 +47,6 @@ This project is still under development and coming up with more functionalities 
 - **MongoDB**: The application uses MongoDB as the database to store product and user information.
 - **Prisma ORM**: Prisma is used as the ORM for database schema management and queries.
 
----
-
 ## How It Works
 
 ## 1. Authentication
@@ -76,7 +74,7 @@ The database schema is managed using **Prisma** and stored in **MongoDB**. Below
 
 ## schema.prisma
 
-````prisma
+```prisma
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
@@ -145,7 +143,7 @@ model VerificationToken {
   token      String   @unique
   expires    DateTime
 }
-```plaintext
+```
 
 ## Security
 
