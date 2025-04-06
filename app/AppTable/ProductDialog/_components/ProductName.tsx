@@ -1,23 +1,14 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { MdError } from "react-icons/md";
-import { IconSelector } from "../IconSelector";
 import { useFormContext } from "react-hook-form";
-import { ReactNode } from "react";
 
-export default function ProductName({
-  onSelectedIcon,
-}: {
-  onSelectedIcon: (selectedIcon: ReactNode) => void;
-}) {
+export default function ProductName() {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
-  function getSelectedIcon(selectedIcon: ReactNode) {
-    onSelectedIcon(selectedIcon);
-  }
   return (
     <div className="mt-5 flex flex-col gap-2">
       <Label htmlFor="product-name" className="text-slate-600">
@@ -31,7 +22,6 @@ export default function ProductName({
           className="h-11 shadow-none"
           placeholder="Laptop..."
         />
-        <IconSelector onUpdateIcon={getSelectedIcon} />
       </div>
 
       {errors.productName && (

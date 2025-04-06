@@ -1,11 +1,10 @@
 import React from "react";
 
-const Loading: React.FC = () => {
+export default function Loading() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="border-4 border-t-4 border-gray-200 rounded-full w-12 h-12 animate-spin"></div>
+    <div className="flex flex-col justify-center items-center h-screen">
+      <p className="text-lg font-semibold mb-4">Loading...</p>
+      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
     </div>
   );
-};
-
-export default Loading;
+}

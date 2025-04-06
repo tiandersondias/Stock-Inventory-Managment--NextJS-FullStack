@@ -1,4 +1,4 @@
-import { Product } from "@/app/Products/columns";
+import { Product } from "@/app/types";
 import { useProductStore } from "@/app/useProductStore";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,27 +16,69 @@ interface ProductsDropDownProps {
 }
 
 export default function ProductsDropDown({ row }: ProductsDropDownProps) {
-  const { addProduct, deleteProduct } = useProductStore();
+  const {
+    addProduct,
+    deleteProduct,
+    setSelectedProduct,
+    setOpenProductDialog,
+    loadProducts,
+  } = useProductStore();
   const router = useRouter();
 
-  const handleCopyProduct = async () => {
-    const productToCopy: Product = {
-      ...row.original,
-      id: Date.now(), // Use Date.now() to generate a unique numeric id
-      name: `${row.original.name} (copy)`,
-      createdAt: new Date(),
-    };
+  console.log("Row Original:", row.original);
 
-    const result = await addProduct(productToCopy);
-    if (result.success) {
-      router.refresh(); // Use router.refresh() instead of router.reload()
+  // Handle Copy Product
+  const handleCopyProduct = async () => {
+    try {
+      const uniqueSku = `${row.original.sku}-${Date.now()}`;
+
+      const productToCopy: Product = {
+        ...row.original,
+        id: Date.now().toString(),
+        name: `${row.original.name} (copy)`,
+        sku: uniqueSku,
+        createdAt: new Date(),
+        category: row.original.category || "Unknown",
+        supplier: row.original.supplier || "Unknown",
+      };
+
+      console.log("Product to Copy:", productToCopy);
+
+      const result = await addProduct(productToCopy);
+      if (result.success) {
+        console.log("Product copied successfully!");
+        await loadProducts();
+        router.refresh();
+      } else {
+        console.error("Failed to copy product.");
+      }
+    } catch (error) {
+      console.error("Error copying product:", error);
     }
   };
 
+  // Handle Edit Product
+  const handleEditProduct = () => {
+    try {
+      setSelectedProduct(row.original);
+      setOpenProductDialog(true);
+    } catch (error) {
+      console.error("Error opening edit dialog:", error);
+    }
+  };
+
+  // Handle Delete Product
   const handleDeleteProduct = async () => {
-    const result = await deleteProduct(row.original.id);
-    if (result.success) {
-      router.refresh(); // Use router.refresh() instead of router.reload()
+    try {
+      const result = await deleteProduct(row.original.id);
+      if (result.success) {
+        console.log("Product deleted successfully!");
+        router.refresh();
+      } else {
+        console.error("Failed to delete product.");
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
     }
   };
 
@@ -61,6 +103,7 @@ export default function ProductsDropDown({ row }: ProductsDropDownProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={handleCopyProduct}>Copy</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleEditProduct}>Edit</DropdownMenuItem>
         <DropdownMenuItem onClick={handleDeleteProduct}>
           Delete
         </DropdownMenuItem>

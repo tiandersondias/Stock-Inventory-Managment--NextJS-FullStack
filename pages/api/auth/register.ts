@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
-import { hashPassword } from "../../../utils/auth";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
@@ -31,7 +31,7 @@ export default async function handler(
       return res.status(400).json({ error: "User already exists" });
     }
 
-    const hashedPassword = await hashPassword(password);
+    const hashedPassword = await bcrypt.hash(password, 10);
     console.log("Hashed password:", hashedPassword);
 
     const user = await prisma.user.create({

@@ -30,19 +30,25 @@ export function SuppliersDropDown({
   setSelectedSuppliers,
 }: SuppliersDropDownProps) {
   const [open, setOpen] = React.useState(false);
-  const { suppliers } = useProductStore();
+  const { suppliers, loadSuppliers } = useProductStore();
+
+  React.useEffect(() => {
+    loadSuppliers();
+  }, [loadSuppliers]);
 
   function handleCheckboxChange(value: string) {
     setSelectedSuppliers((prev) => {
       const updatedSuppliers = prev.includes(value)
         ? prev.filter((supplier) => supplier !== value)
         : [...prev, value];
+      console.log("Updated Selected Suppliers:", updatedSuppliers); // Debug log
       return updatedSuppliers;
     });
   }
 
   function clearFilters() {
     setSelectedSuppliers([]);
+    console.log("Cleared Selected Suppliers"); // Debug log
   }
 
   return (
@@ -63,16 +69,16 @@ export function SuppliersDropDown({
               </CommandEmpty>
               <CommandGroup>
                 {suppliers.map((supplier) => (
-                  <CommandItem className="h-9" key={supplier}>
+                  <CommandItem className="h-9" key={supplier.id}>
                     <Checkbox
-                      checked={selectedSuppliers.includes(supplier)}
-                      onClick={() => handleCheckboxChange(supplier)}
+                      checked={selectedSuppliers.includes(supplier.id)} // Use supplier ID
+                      onClick={() => handleCheckboxChange(supplier.id)} // Pass supplier ID
                       className="size-4 rounded-[4px]"
                     />
                     <div
-                      className={`flex items-center gap-1 p-1 rounded-lg px-3  text-[14px]`}
+                      className={`flex items-center gap-1 p-1 rounded-lg px-3 text-[14px]`}
                     >
-                      {supplier}
+                      {supplier.name}
                     </div>
                   </CommandItem>
                 ))}

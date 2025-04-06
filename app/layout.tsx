@@ -4,9 +4,10 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
-import { AuthProvider } from "./authContext"; // Import AuthProvider
-import { ToastContainer } from "react-toastify"; // Import ToastContainer
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
+import { AuthProvider } from "./authContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import GlobalLoading from "@/components/GlobalLoading";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -47,6 +48,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <GlobalLoading />
             {children}
           </ThemeProvider>
           <Toaster />

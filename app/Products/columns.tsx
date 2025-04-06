@@ -1,11 +1,9 @@
 "use client";
 
 import { Column, ColumnDef } from "@tanstack/react-table";
+import { Product } from "@/app/types";
 import { ReactNode } from "react";
 
-import { FaCheck } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
-import { LuGitPullRequestDraft } from "react-icons/lu";
 import ProductDropDown from "./ProductsDropDown";
 
 import { ArrowUpDown } from "lucide-react";
@@ -17,21 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export type Product = {
-  id: number; // Change id type to number
-  name: string;
-  supplier: string;
-  sku: string;
-  category: string;
-  status: "Available" | "Stock Out" | "Stock Low";
-  quantityInStock: number;
-  price: number;
-  icon: ReactNode;
-  createdAt: Date;
-};
-
 type SortableHeaderProps = {
-  column: Column<Product, unknown>; // Specify the type of data
+  column: Column<Product, unknown>;
   label: string;
 };
 
@@ -58,11 +43,13 @@ const SortableHeader: React.FC<SortableHeaderProps> = ({ column, label }) => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" side="bottom">
-        <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+        {/* Ascending Sorting */}
+        <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
           <IoMdArrowUp className="mr-2 h-4 w-4" />
           Asc
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+        {/* Descending Sorting */}
+        <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
           <IoMdArrowDown className="mr-2 h-4 w-4" />
           Desc
         </DropdownMenuItem>
@@ -78,7 +65,14 @@ export const columns: ColumnDef<Product>[] = [
       <SortableHeader column={column} label="Created At" />
     ),
     cell: ({ getValue }) => {
-      const date = getValue<Date>();
+      const dateValue = getValue<string | Date>();
+      const date =
+        typeof dateValue === "string" ? new Date(dateValue) : dateValue;
+
+      if (!date || isNaN(date.getTime())) {
+        return <span>Unknown Date</span>;
+      }
+
       return (
         <span>
           {date.toLocaleDateString("en-US", {
@@ -93,16 +87,8 @@ export const columns: ColumnDef<Product>[] = [
   {
     accessorKey: "name",
     cell: ({ row }) => {
-      const Icon = row.original.icon; // Access the icon property for each row
       const name = row.original.name;
-      return (
-        <div className="flex items-center space-x-2">
-          <div className="p-2 rounded-sm bg-primary/10 text-primary">
-            {Icon}
-          </div>
-          <span>{name}</span>
-        </div>
-      );
+      return <span>{name}</span>;
     },
     header: ({ column }) => <SortableHeader column={column} label="Name" />,
   },
@@ -111,48 +97,9 @@ export const columns: ColumnDef<Product>[] = [
     header: ({ column }) => <SortableHeader column={column} label="SKU" />,
   },
   {
-    accessorKey: "status",
-    header: ({ column }) => <SortableHeader column={column} label="Status" />,
-    filterFn: "multiSelect",
-    cell: ({ row }) => {
-      const status = row.original.status;
-      let colorClass;
-      let icon: ReactNode;
-
-      // Apply color based on status
-      switch (status) {
-        case "Available":
-          colorClass = "text-green-600 bg-green-100";
-          icon = <FaCheck className="text-[12px]" />;
-          break;
-        case "Stock Out":
-          colorClass = "text-red-600 bg-red-100";
-          icon = <IoClose className="text-[12px]" />;
-          break;
-        case "Stock Low":
-          colorClass = "text-orange-600 bg-orange-100";
-          icon = <LuGitPullRequestDraft className="text-[12px]" />;
-          break;
-        default:
-          colorClass = "text-gray-600 bg-gray-200";
-          icon = <FaCheck className="text-[12px]" />;
-      }
-
-      return (
-        <span
-          className={`px-3 py-[2px] rounded-full font-medium ${colorClass} flex gap-1 items-center w-fit`}
-        >
-          {icon}
-          <span className="text-[13px]"> {status}</span>
-        </span>
-      );
-    },
-  },
-  {
-    accessorKey: "quantityInStock",
-    header: ({ column }) => (
-      <SortableHeader column={column} label="Quantity In Stock" />
-    ),
+    accessorKey: "quantity",
+    header: ({ column }) => <SortableHeader column={column} label="Quantity" />,
+    cell: ({ row }) => <span>{row.original.quantity}</span>,
   },
   {
     accessorKey: "price",
@@ -160,19 +107,67 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ getValue }) => `$${getValue<number>().toFixed(2)}`,
   },
   {
-    accessorKey: "supplier",
-    header: ({ column }) => <SortableHeader column={column} label="Supplier" />,
-  },
-
-  {
-    accessorKey: "category",
-    header: ({ column }) => <SortableHeader column={column} label="Category" />,
-    filterFn: "multiSelect",
+    accessorKey: "status",
+    header: ({ column }) => <SortableHeader column={column} label="Status" />,
     cell: ({ row }) => {
-      const category = row.original.category;
-      return <span>{category}</span>;
+      const quantity = row.original.quantity;
+      let status = "";
+      let colorClass = "";
+
+      if (quantity > 20) {
+        status = "Available";
+        colorClass = "bg-green-100 text-green-600";
+      } else if (quantity > 0 && quantity <= 20) {
+        status = "Stock Low";
+        colorClass = "bg-orange-100 text-orange-600";
+      } else {
+        status = "Stock Out";
+        colorClass = "bg-red-100 text-red-600";
+      }
+
+      return (
+        <span
+          className={`px-3 py-[2px] rounded-full font-medium ${colorClass} flex gap-1 items-center w-fit`}
+        >
+          {status}
+        </span>
+      );
     },
   },
+  {
+    accessorKey: "category",
+    header: "Category",
+    cell: ({ row }) => {
+      const categoryName = row.original.category;
+      return <span>{categoryName || "Unknown"}</span>;
+    },
+  },
+  // {
+  //   accessorKey: "categoryId",
+  //   header: "Category ID",
+  //   cell: ({ getValue }) => {
+  //     const categoryId = getValue<string | undefined>();
+  //     return <span>{categoryId || "Unknown"}</span>;
+  //   },
+  //   enableColumnFilter: false, // Hide this column from the UI
+  // },
+  {
+    accessorKey: "supplier",
+    header: "Supplier",
+    cell: ({ row }) => {
+      const supplierName = row.original.supplier; // Display supplier name
+      return <span>{supplierName || "Unknown"}</span>;
+    },
+  },
+  // {
+  //   accessorKey: "supplierId",
+  //   header: "Supplier ID",
+  //   cell: ({ getValue }) => {
+  //     const supplierId = getValue<string | undefined>();
+  //     return <span>{supplierId || "Unknown"}</span>;
+  //   },
+  //   enableColumnFilter: false, // Hide this column from the UI
+  // },
   {
     id: "actions",
     cell: ({ row }) => {
@@ -180,3 +175,5 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
 ];
+
+console.log("Columns passed to useReactTable:", columns);

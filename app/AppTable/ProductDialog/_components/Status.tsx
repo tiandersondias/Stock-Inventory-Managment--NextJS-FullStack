@@ -6,7 +6,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { LuGitPullRequestDraft } from "react-icons/lu";
-import { Product } from "@/app/Products/columns";
+import { Product } from "@/app/types"; // Import shared interfaces
 
 const statuses = [
   { value: "Available", label: "Available", icon: <FaCheck /> },

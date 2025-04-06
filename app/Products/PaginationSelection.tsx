@@ -9,7 +9,12 @@ import {
 } from "@/components/ui/select";
 
 import { Dispatch, SetStateAction } from "react";
-import { PaginationType } from "./ProductTable";
+
+// Define PaginationType locally
+export interface PaginationType {
+  pageIndex: number;
+  pageSize: number;
+}
 
 export default function PaginationSelection({
   pagination,

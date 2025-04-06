@@ -1,69 +1,194 @@
-## Stock Inventory Management - NextJS
+## Stockly - Inventory Management System
 
-<img width="1213" alt="Screenshot 2025-02-20 at 15 55 47" src="https://github.com/user-attachments/assets/23216dcd-c18d-4060-abcd-8249e8bbf8b7" /><img width="200" alt="Screenshot 2025-02-20 at 15 56 17" src="https://github.com/user-attachments/assets/20b19c6f-9884-4b97-b667-852053792704" /><img width="269" alt="Screenshot 2025-02-20 at 15 56 25" src="https://github.com/user-attachments/assets/3e5b91a0-75bc-45b0-b5bb-5575f970ae48" /><img width="1201" alt="Screenshot 2025-02-20 at 15 56 41" src="https://github.com/user-attachments/assets/e2be1491-349b-485b-bcc5-d0050f238252" /><img width="878" alt="Screenshot 2025-02-20 at 15 56 59" src="https://github.com/user-attachments/assets/388470af-f505-4dae-906f-7ad9626d1e38" /><img width="1165" alt="Screenshot 2025-02-20 at 15 57 19" src="https://github.com/user-attachments/assets/471d9997-071b-4d50-80f0-c5582132b39d" />
+Stockly is a **ReactJS-based inventory management application** built with **Next.js**. It is designed to help businesses efficiently manage their product inventory. The application includes features such as product listing, adding new products, editing existing products, filtering products, and more. It also incorporates robust security measures like **JWT-based authentication**, **password hashing**, and **middleware** for secure API interactions.
 
-Stock Inventory is a ReactJS-based inventory management application designed to help you manage your product stock efficiently. This application includes features such as product listing, adding new products, editing existing products, and filtering products based on various criteria.
-
-_NOTE: This project is still under development and coming up more functionalities and features soon using mongodb, prisma, user validation with jwt, encryption etc_
-
-**Online-Live: ** https://stockly-inventory.vercel.app/
+**Online-Live:**
 
 ## Features
+
+## 1. Product Management
 
 - **Product Listing**: View a list of all products with details such as name, SKU, status, quantity in stock, price, and supplier.
 - **Add Product**: Add new products to the inventory with details such as name, SKU, status, quantity, price, and supplier.
 - **Edit Product**: Edit existing product details.
-- **Filter Products**: Filter products based on status and category.
-- **Responsive Design**: The application is responsive and works well on devices of various screen sizes, including mobile phones.
+- **Delete Product**: Remove products from the inventory.
 
-## Installation
+## 2. Filtering and Sorting
 
-To get started with Stockly, follow these steps:
+- **Filter Products**: Filter products based on status, category, and supplier.
+- **Search Products**: Search for products by name or SKU.
+- **Sort Products**: Sort products by attributes like name, price, or quantity.
 
-1. **Clone the repository**:
+## 3. Authentication
 
-   ```bash
-   git clone https://github.com/your-username/stockly.git
-   cd stockly
-   ```
+- **User Login and Registration**: Secure user authentication using **JWT (JSON Web Tokens)**.
+- **Password Hashing**: Passwords are hashed using **bcrypt** for secure storage.
+- **Session Management**: Tokens are stored securely in cookies for session management.
 
-2. **Install dependencies**:
+## 4. Responsive Design
 
-   ```bash
-   npm install
-   ```
+- The application is fully responsive and works seamlessly on devices of all screen sizes, including desktops, tablets, and mobile phones.
 
-3. **Start the development server**:
+## 5. API Integration
 
-   ```bash
-   npm run dev
-   ```
+- **RESTful APIs**: The backend is built with Next.js API routes, providing endpoints for managing products, users, and authentication.
+- **Middleware**: Middleware is used to validate tokens and protect sensitive routes.
 
-4. **Open the application**:
-   Open your browser and navigate to `http://localhost:3000`.
+## 6. Database
 
-## Usage
+- **MongoDB**: The application uses MongoDB as the database to store product and user information.
+- **Prisma ORM**: Prisma is used as the ORM for database schema management and queries.
 
-### Adding a New Product
+---
 
-1. Click on the "+Add Product" button.
-2. Fill in the product details in the form.
-3. Click the "Add Product" button to save the new product.
+## How It Works
 
-### Editing an Existing Product
+## 1. Authentication
 
-1. Click on the dropdown menu next to the product you want to edit.
-2. Select "Edit".
-3. Update the product details in the form.
-4. Click the "Edit Product" button to save the changes.
+- **Registration**: Users register by providing their email and password. The password is hashed using **bcrypt** before being stored in the database.
+- **Login**: Users log in with their email and password. A **JWT** is generated upon successful login and stored in a secure cookie.
+- **Token Validation**: Middleware validates the JWT for protected routes to ensure only authenticated users can access them.
 
-### Filtering Products
+## 2. Product Management
 
-1. Use the status and category dropdowns to filter products based on their status and category.
+- **Add Product**: Users can add products by filling out a form with details like name, SKU, category, supplier, price, and quantity.
+- **Edit Product**: Users can edit product details through a dialog form.
+- **Delete Product**: Users can delete products, which removes them from the database.
+
+## 3. Filtering and Sorting
+
+- **Category Filter**: Products can be filtered by category using a dropdown menu.
+- **Status Filter**: Products can be filtered by their stock status (e.g., Available, Stock Low, Stock Out).
+- **Supplier Filter**: Products can be filtered by supplier.
+- **Search**: Users can search for products by name or SKU.
+
+## 4. Database Schema
+
+The database schema is managed using **Prisma** and stored in **MongoDB**. Below is an example of the schema:
+
+### User Schema
+
+````json
+{
+  "id": "ObjectId",
+  "email": "string",
+  "password": "string (hashed)",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```plaintext
+
+### Product Schema
+
+```json
+{
+  "id": "ObjectId",
+  "name": "string",
+  "sku": "string",
+  "categoryId": "ObjectId",
+  "supplierId": "ObjectId",
+  "price": "number",
+  "quantity": "number",
+  "status": "string",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+## Security
+
+## 1. Password Hashing
+
+- Passwords are hashed using **bcrypt** before being stored in the database. This ensures that even if the database is compromised, passwords remain secure.
+
+## 2. JWT Authentication
+
+- **Token Generation**: Upon login, a JWT is generated and sent to the client.
+- **Token Storage**: The token is stored in a secure, HTTP-only cookie to prevent XSS attacks.
+- **Token Validation**: Middleware validates the token for protected routes.
+
+## 3. Middleware
+
+- Middleware is used to protect sensitive API routes by validating the JWT and ensuring the user is authenticated.
+
+---
+
+## How to Run the Project
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/stockly.git
+cd stockly
+```
+
+## 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### Note
+
+If you get error installing any npm dependency, it might be due to using Next.js 15 and the latest version of React and tanstack/table together. Tp avoid that, run:
+
+```bash
+npm install --force
+```
+
+## 3. Set Up Environment Variables
+
+Create a `.env` file in the root directory and add the following environment variables:
+
+```env
+DATABASE_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/stockly
+JWT_SECRET=your_jwt_secret
+```
+
+## 4. Run the Development Server
+
+```bash
+npm run dev
+```
+
+## 5. Open the Application
+
+Open your browser and navigate to `http://localhost:3000`.
+
+---
+
+## API Endpoints
+
+## Authentication
+
+- **POST /api/auth/register**: Register a new user.
+- **POST /api/auth/login**: Log in a user and return a JWT.
+- **GET /api/auth/me**: Get the authenticated user's details.
+
+## Products
+
+- **GET /api/products**: Get a list of all products.
+- **POST /api/products**: Add a new product.
+- **PUT /api/products/:id**: Update an existing product.
+- **DELETE /api/products/:id**: Delete a product.
+
+## Category
+
+- **GET /api/categories**: Get a list of all categories.
+- **POST /api/categories**: Add a new categories.
+- **PUT /api/categories/:id**: Update an existing categories.
+- **DELETE /api/categories/:id**: Delete a categories.
+
+## Supplier
+
+- **GET /api/suppliers**: Get a list of all suppliers.
+- **POST /api/suppliers**: Add a new suppliers.
+- **PUT /api/suppliers/:id**: Update an existing suppliers.
+- **DELETE /api/suppliers/:id**: Delete a suppliers.
+
+---
 
 ## Project Structure
-
-The project structure is organized as follows:
 
 ```
 stockly
@@ -117,45 +242,4 @@ stockly
 ├── README.md
 └── tsconfig.json
 ```
-
-## Components
-
-### AppHeader
-
-The `AppHeader` component is responsible for rendering the header of the application.
-
-### AppTable
-
-The `AppTable` component is responsible for rendering the table of products. It includes sub-components such as `ProductDialog`, `StatusDropDown`, and `CategoryDropDown`.
-
-### ProductDialog
-
-The `ProductDialog` component is responsible for rendering the dialog for adding and editing products. It includes sub-components such as `ProductName`, `Price`, `ProductCategory`, `Quantity`, `SKU`, `Status`, and `Supplier`.
-
-### DeleteDialog
-
-The `DeleteDialog` component is responsible for rendering the dialog for deleting products.
-
-### Products
-
-The `Products` directory contains the `ProductTable` component and the columns.tsx file, which defines the columns of the product table.
-
-### AuthContext
-
-The `authContext.tsx` file contains the authentication context for the application.
-
-### Login and Register
-
-The `login` and `register` directories contain the pages for user login and registration.
-
-### UI Components
-
-The ui directory contains reusable UI components such as `Badge`, `Button`, `Card`, `DropdownMenu`, `Input`, `Label`, `Popover`, `Select`, `Separator`, `Table`, and `Textarea`.
-
-## Responsive Design
-
-The application is designed to be responsive and works well on devices of various screen sizes, including mobile phones. Tailwind CSS is used to apply responsive styles.
-
-## Contributing
-
-Contributions are welcome! If you have any suggestions or improvements, please create a pull request or open an issue.
+````

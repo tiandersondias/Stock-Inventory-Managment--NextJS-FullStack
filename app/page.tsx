@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Home from "./Home";
-import LoginPage from "../components/LoginPage";
+import Login from "./login/page";
 import { useAuth } from "./authContext";
-import Loading from "../components/Loading"; // Import Loading component
+import Loading from "../components/Loading";
 
 interface PageProps {
   params: Promise<{ [key: string]: any }>;
@@ -14,19 +14,19 @@ interface PageProps {
 
 const PageContent: React.FC<{ onLogin: () => void }> = ({ onLogin }) => {
   const router = useRouter();
-  const { isLoggedIn: authIsLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth(); // Use isLoggedIn from useAuth
 
   useEffect(() => {
-    if (authIsLoggedIn) {
-      router.push("/");
+    if (!isLoggedIn) {
+      router.push("/login");
     }
-  }, [authIsLoggedIn, router]);
+  }, [isLoggedIn, router]);
 
-  if (authIsLoggedIn) {
+  if (isLoggedIn) {
     return <Home />;
   }
 
-  return <LoginPage onLogin={onLogin} />;
+  return <Login onLogin={onLogin} />;
 };
 
 const Page: React.FC<PageProps> = ({ params, searchParams }) => {
@@ -50,7 +50,7 @@ const Page: React.FC<PageProps> = ({ params, searchParams }) => {
   };
 
   if (!resolvedParams || !resolvedSearchParams) {
-    return <Loading />; // Use Loading component
+    return <Loading />;
   }
 
   return <PageContent onLogin={handleLogin} />;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,16 +16,31 @@ import { Input } from "@/components/ui/input";
 import { useProductStore } from "@/app/useProductStore";
 import { useToast } from "@/hooks/use-toast";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { useAuth } from "@/app/authContext";
+import axiosInstance from "@/utils/axiosInstance";
 
 export default function AddSupplierDialog() {
   const [supplierName, setSupplierName] = useState("");
   const [editingSupplier, setEditingSupplier] = useState<string | null>(null);
   const [newSupplierName, setNewSupplierName] = useState("");
-  const { suppliers, addSupplier, editSupplier, deleteSupplier } =
-    useProductStore();
+  const [isSubmitting, setIsSubmitting] = useState(false); // Button loading state
+  const {
+    suppliers,
+    addSupplier,
+    editSupplier,
+    deleteSupplier,
+    loadSuppliers,
+  } = useProductStore();
   const { toast } = useToast();
+  const { user, isLoggedIn } = useAuth();
 
-  const handleAddSupplier = () => {
+  useEffect(() => {
+    if (isLoggedIn) {
+      loadSuppliers();
+    }
+  }, [isLoggedIn, loadSuppliers]);
+
+  const handleAddSupplier = async () => {
     if (supplierName.trim() === "") {
       toast({
         title: "Error",
@@ -34,15 +49,36 @@ export default function AddSupplierDialog() {
       return;
     }
 
-    addSupplier(supplierName);
-    setSupplierName("");
-    toast({
-      title: "Success",
-      description: "Supplier added successfully!",
-    });
+    setIsSubmitting(true); // Start loading
+    try {
+      const response = await axiosInstance.post("/suppliers", {
+        name: supplierName,
+        userId: user?.id,
+      });
+
+      if (response.status !== 201) {
+        throw new Error("Failed to add supplier");
+      }
+
+      const newSupplier = response.data;
+      addSupplier(newSupplier);
+      setSupplierName("");
+      toast({
+        title: "Success",
+        description: "Supplier added successfully!",
+      });
+    } catch (error) {
+      console.error("Error adding supplier:", error);
+      toast({
+        title: "Error",
+        description: "Failed to add supplier.",
+      });
+    } finally {
+      setIsSubmitting(false); // Stop loading
+    }
   };
 
-  const handleEditSupplier = (oldSupplier: string) => {
+  const handleEditSupplier = async (supplierId: string) => {
     if (newSupplierName.trim() === "") {
       toast({
         title: "Error",
@@ -51,22 +87,66 @@ export default function AddSupplierDialog() {
       return;
     }
 
-    editSupplier(oldSupplier, newSupplierName);
-    setEditingSupplier(null);
-    setNewSupplierName("");
-    toast({
-      title: "Success",
-      description: "Supplier edited successfully!",
-    });
+    setIsSubmitting(true); // Start loading
+    try {
+      const response = await axiosInstance.put("/suppliers", {
+        id: supplierId,
+        name: newSupplierName,
+      });
+
+      if (response.status !== 200) {
+        throw new Error("Failed to edit supplier");
+      }
+
+      const updatedSupplier = response.data;
+      editSupplier(supplierId, updatedSupplier.name);
+      setEditingSupplier(null);
+      setNewSupplierName("");
+      toast({
+        title: "Success",
+        description: "Supplier edited successfully!",
+      });
+    } catch (error) {
+      console.error("Error editing supplier:", error);
+      toast({
+        title: "Error",
+        description: "Failed to edit supplier.",
+      });
+    } finally {
+      setIsSubmitting(false); // Stop loading
+    }
   };
 
-  const handleDeleteSupplier = (supplier: string) => {
-    deleteSupplier(supplier);
-    toast({
-      title: "Success",
-      description: "Supplier deleted successfully!",
-    });
+  const handleDeleteSupplier = async (supplierId: string) => {
+    setIsSubmitting(true); // Start loading
+    try {
+      const response = await axiosInstance.delete("/suppliers", {
+        data: { id: supplierId },
+      });
+
+      if (response.status !== 204) {
+        throw new Error("Failed to delete supplier");
+      }
+
+      deleteSupplier(supplierId);
+      toast({
+        title: "Success",
+        description: "Supplier deleted successfully!",
+      });
+    } catch (error) {
+      console.error("Error deleting supplier:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete supplier.",
+      });
+    } finally {
+      setIsSubmitting(false); // Stop loading
+    }
   };
+
+  if (!isLoggedIn) {
+    return null;
+  }
 
   return (
     <Dialog>
@@ -86,7 +166,7 @@ export default function AddSupplierDialog() {
           placeholder="New Supplier"
           className="mt-4"
         />
-        <DialogFooter className="mt-9 mb-4 flex flex-col sm:flex-row items-center gap-4 ">
+        <DialogFooter className="mt-9 mb-4 flex flex-col sm:flex-row items-center gap-4">
           <DialogClose asChild>
             <Button
               variant={"secondary"}
@@ -98,59 +178,69 @@ export default function AddSupplierDialog() {
           <Button
             onClick={handleAddSupplier}
             className="h-11 w-full sm:w-auto px-11"
+            isLoading={isSubmitting} // Button loading effect
           >
-            Add Supplier
+            {isSubmitting ? "Loading..." : "Add Supplier"}
           </Button>
         </DialogFooter>
         <div className="mt-4">
           <h3 className="text-lg font-semibold">Suppliers</h3>
-          <ul className="mt-2 space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
             {suppliers.map((supplier) => (
-              <li key={supplier} className="flex items-center justify-between">
-                {editingSupplier === supplier ? (
-                  <div className="flex items-center space-x-2">
+              <div
+                key={supplier.id}
+                className="p-4 border rounded-lg shadow-sm flex flex-col justify-between"
+              >
+                {editingSupplier === supplier.id ? (
+                  <div className="flex flex-col space-y-2">
                     <Input
                       value={newSupplierName}
                       onChange={(e) => setNewSupplierName(e.target.value)}
                       placeholder="Edit Supplier"
                       className="h-8"
                     />
-                    <Button
-                      onClick={() => handleEditSupplier(supplier)}
-                      className="h-8"
-                    >
-                      Save
-                    </Button>
-                    <Button
-                      onClick={() => setEditingSupplier(null)}
-                      className="h-8"
-                    >
-                      Cancel
-                    </Button>
+                    <div className="flex justify-between gap-2">
+                      <Button
+                        onClick={() => handleEditSupplier(supplier.id)}
+                        className="h-8 w-full"
+                        isLoading={isSubmitting}
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        onClick={() => setEditingSupplier(null)}
+                        className="h-8 w-full"
+                      >
+                        Cancel
+                      </Button>
+                    </div>
                   </div>
                 ) : (
-                  <div className="flex items-center space-x-2">
-                    <span>{supplier}</span>
-                    <Button
-                      onClick={() => {
-                        setEditingSupplier(supplier);
-                        setNewSupplierName(supplier);
-                      }}
-                      className="h-8"
-                    >
-                      <FaEdit />
-                    </Button>
-                    <Button
-                      onClick={() => handleDeleteSupplier(supplier)}
-                      className="h-8"
-                    >
-                      <FaTrash />
-                    </Button>
+                  <div className="flex flex-col space-y-2">
+                    <span className="font-medium">{supplier.name}</span>
+                    <div className="flex justify-between gap-2">
+                      <Button
+                        onClick={() => {
+                          setEditingSupplier(supplier.id);
+                          setNewSupplierName(supplier.name);
+                        }}
+                        className="h-8 w-full"
+                      >
+                        <FaEdit />
+                      </Button>
+                      <Button
+                        onClick={() => handleDeleteSupplier(supplier.id)}
+                        className="h-8 w-full"
+                        isLoading={isSubmitting}
+                      >
+                        <FaTrash />
+                      </Button>
+                    </div>
                   </div>
                 )}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

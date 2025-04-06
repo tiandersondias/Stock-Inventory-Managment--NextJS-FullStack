@@ -19,30 +19,43 @@ import { LuGitPullRequestDraft } from "react-icons/lu";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { useProductStore } from "@/app/useProductStore";
+import { useAuth } from "@/app/authContext";
 
-type CategoriesDropDownProps = {
-  selectedCategories: string[];
-  setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
+type CategoryDropDownProps = {
+  selectedCategory: string[];
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export function CategoriesDropDown({
-  selectedCategories,
-  setSelectedCategories,
-}: CategoriesDropDownProps) {
+export function CategoryDropDown({
+  selectedCategory,
+  setSelectedCategory,
+}: CategoryDropDownProps) {
   const [open, setOpen] = React.useState(false);
-  const { categories } = useProductStore();
+  const { categories, loadCategories } = useProductStore();
+  const { user } = useAuth(); // Get the logged-in user's info
+
+  React.useEffect(() => {
+    loadCategories();
+  }, [loadCategories]);
+
+  // Filter categories by userId
+  const userCategories = React.useMemo(() => {
+    return categories.filter((category) => category.userId === user?.id);
+  }, [categories, user]);
 
   function handleCheckboxChange(value: string) {
-    setSelectedCategories((prev) => {
+    setSelectedCategory((prev) => {
       const updatedCategories = prev.includes(value)
         ? prev.filter((category) => category !== value)
         : [...prev, value];
+      console.log("Updated Selected Categories:", updatedCategories); // Debug log
       return updatedCategories;
     });
   }
 
   function clearFilters() {
-    setSelectedCategories([]);
+    setSelectedCategory([]);
+    console.log("Cleared Selected Categories");
   }
 
   return (
@@ -62,17 +75,17 @@ export function CategoriesDropDown({
                 No category found.
               </CommandEmpty>
               <CommandGroup>
-                {categories.sort().map((category) => (
-                  <CommandItem className="h-9" key={category}>
+                {userCategories.map((category) => (
+                  <CommandItem className="h-9" key={category.id}>
                     <Checkbox
-                      checked={selectedCategories.includes(category)}
-                      onClick={() => handleCheckboxChange(category)}
+                      checked={selectedCategory.includes(category.id)} // Use category ID
+                      onClick={() => handleCheckboxChange(category.id)} // Pass category ID
                       className="size-4 rounded-[4px]"
                     />
                     <div
-                      className={`flex items-center gap-1 p-1 rounded-lg px-3  text-[14px]`}
+                      className={`flex items-center gap-1 p-1 rounded-lg px-3 text-[14px]`}
                     >
-                      {category}
+                      {category.name}
                     </div>
                   </CommandItem>
                 ))}

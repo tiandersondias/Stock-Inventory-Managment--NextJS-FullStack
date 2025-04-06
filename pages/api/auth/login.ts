@@ -1,62 +1,49 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
-import { z } from "zod";
-import { comparePassword, generateToken } from "../../../utils/auth";
+import bcrypt from "bcryptjs";
+import { generateToken } from "../../../utils/auth";
+import Cookies from "cookies";
 
 const prisma = new PrismaClient();
 
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
-});
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  console.log("Request method:", req.method);
+export default async function login(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
-    console.error("Method Not Allowed");
-    return res.status(405).json({ error: "Method Not Allowed" });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  try {
-    const { email, password } = loginSchema.parse(req.body);
-    console.log("Parsed request body:", { email, password });
+  const { email, password } = req.body;
 
-    console.log("Starting database query...");
-    const start = Date.now();
-    const user = await prisma.user.findUnique({
-      where: { email },
-      select: { id: true, name: true, email: true, password: true },
-    });
-    const end = Date.now();
-    console.log(`Database query completed in ${end - start}ms`);
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-      console.error("Invalid email or password");
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    const isPasswordValid = await comparePassword(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
-      console.error("Invalid email or password");
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
     const token = generateToken(user.id);
-    console.log("Generated token:", token);
+    const cookies = new Cookies(req, res);
+    cookies.set("session_id", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 60 * 60 * 1000, // 1 hour
+    });
 
+    console.log("Login successful, session ID set:", token);
     res.status(200).json({
-      token,
-      user: { id: user.id, name: user.name, email: user.email },
+      userId: user.id,
+      userName: user.name,
+      userEmail: user.email,
+      sessionId: token,
     });
   } catch (error) {
     console.error("Login error:", error);
-    if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error: "An unknown error occurred" });
-    }
+    res.status(500).json({ error: "Internal server error" });
   }
 }
