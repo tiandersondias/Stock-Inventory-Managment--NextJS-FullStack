@@ -100,6 +100,8 @@ export default async function handler(
   const allowedOrigins = [
     "https://stockly-inventory.vercel.app",
     "https://stockly-inventory-managment-nextjs-ovlrz6kdv.vercel.app",
+    "https://stockly-inventory-managment-nextjs-arnob-mahmuds-projects.vercel.app",
+    req.headers.origin,
   ];
   const origin = req.headers.origin;
 
