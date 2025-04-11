@@ -100,6 +100,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       });
       Cookies.set("session_id", result.sessionId);
       console.log("Login successful, session ID set:", result.sessionId);
+
+      // Debug log to verify cookie
+      console.log(
+        "Session ID from Cookies after login:",
+        Cookies.get("session_id")
+      );
+
       // Set necessary attributes in local storage
       localStorage.setItem("isAuth", "true");
       localStorage.setItem("isLoggedIn", "true");

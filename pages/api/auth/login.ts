@@ -78,12 +78,14 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
+      console.error("User not found for email:", email);
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
+      console.error("Invalid password for email:", email);
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
@@ -104,7 +106,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
       sessionId: token,
     });
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("Login error:", error); // Log the exact error
     res.status(500).json({ error: "Internal server error" });
   }
 }
