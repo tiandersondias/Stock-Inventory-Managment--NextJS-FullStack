@@ -88,15 +88,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // Test database connection
-  await prisma
-    .$connect()
-    .then(() => console.log("Connected to the database"))
-    .catch((error) => {
-      console.error("Database connection error:", error);
-      return res.status(500).json({ error: "Database connection failed" });
-    });
-
   const allowedOrigins = [
     "https://stockly-inventory.vercel.app",
     "https://stockly-inventory-managment-nextjs-ovlrz6kdv.vercel.app",
@@ -137,7 +128,9 @@ export default async function handler(
         const token = generateToken(user.id);
         res.setHeader(
           "Set-Cookie",
-          `session_token=${token}; HttpOnly; Path=/; Max-Age=3600; SameSite=None; Secure`
+          `session_token=${token}; HttpOnly; Path=/; Max-Age=3600; SameSite=None; ${
+            process.env.NODE_ENV === "production" ? "Secure" : ""
+          }`
         ); // Token expires in 1 hour
         return res.status(200).json(user);
       } catch (error) {

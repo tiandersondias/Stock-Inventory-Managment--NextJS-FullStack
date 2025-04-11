@@ -107,7 +107,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
     const cookies = new Cookies(req, res);
     cookies.set("session_id", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production", // Only secure in production
       sameSite: "none", // Allow cross-origin cookies
       maxAge: 60 * 60 * 1000, // 1 hour
     });
