@@ -29,6 +29,7 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true, // Ensure cookies are sent with requests
 });
 
 axiosInstance.interceptors.request.use((config) => {

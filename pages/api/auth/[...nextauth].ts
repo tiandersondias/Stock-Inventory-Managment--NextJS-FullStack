@@ -88,12 +88,33 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://stockly-inventory.vercel.app"
-  );
+  // Test database connection
+  await prisma
+    .$connect()
+    .then(() => console.log("Connected to the database"))
+    .catch((error) => {
+      console.error("Database connection error:", error);
+      return res.status(500).json({ error: "Database connection failed" });
+    });
+
+  const allowedOrigins = [
+    "https://stockly-inventory.vercel.app",
+    "https://stockly-inventory-managment-nextjs-ovlrz6kdv.vercel.app",
+  ];
+  const origin = req.headers.origin;
+
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    res.setHeader(
+      "Access-Control-Allow-Origin",
+      "https://stockly-inventory.vercel.app"
+    );
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
   if (req.method === "OPTIONS") {
     return res.status(200).end(); // Handle preflight requests
@@ -114,7 +135,7 @@ export default async function handler(
         const token = generateToken(user.id);
         res.setHeader(
           "Set-Cookie",
-          `session_token=${token}; HttpOnly; Path=/; Max-Age=3600`
+          `session_token=${token}; HttpOnly; Path=/; Max-Age=3600; SameSite=None; Secure`
         ); // Token expires in 1 hour
         return res.status(200).json(user);
       } catch (error) {

@@ -57,12 +57,24 @@ import Cookies from "cookies";
 const prisma = new PrismaClient();
 
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://stockly-inventory.vercel.app"
-  );
+  const allowedOrigins = [
+    "https://stockly-inventory.vercel.app",
+    "https://stockly-inventory-managment-nextjs-ovlrz6kdv.vercel.app",
+  ];
+  const origin = req.headers.origin;
+
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    res.setHeader(
+      "Access-Control-Allow-Origin",
+      "https://stockly-inventory.vercel.app"
+    );
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
   if (req.method === "OPTIONS") {
     return res.status(200).end(); // Handle preflight requests
@@ -94,7 +106,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
     cookies.set("session_id", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none", // Allow cross-origin cookies
       maxAge: 60 * 60 * 1000, // 1 hour
     });
 
@@ -106,7 +118,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
       sessionId: token,
     });
   } catch (error) {
-    console.error("Login error:", error); // Log the exact error
+    console.error("Login error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
