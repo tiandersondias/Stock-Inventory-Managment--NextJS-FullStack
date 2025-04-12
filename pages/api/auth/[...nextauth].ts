@@ -127,10 +127,16 @@ export default async function handler(
         }
 
         const token = generateToken(user.id);
+
+        // Determine if the connection is secure
+        const isSecure =
+          req.headers["x-forwarded-proto"] === "https" ||
+          process.env.NODE_ENV !== "development";
+
         res.setHeader(
           "Set-Cookie",
           `session_token=${token}; HttpOnly; Path=/; Max-Age=3600; SameSite=None; ${
-            process.env.NODE_ENV === "production" ? "Secure" : ""
+            isSecure ? "Secure" : ""
           }`
         ); // Token expires in 1 hour
         return res.status(200).json(user);
