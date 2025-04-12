@@ -1,10 +1,18 @@
 ## Stockly - Inventory Management System
 
-<img width="442" alt="Screenshot 2025-04-12 at 02 20 06" src="https://github.com/user-attachments/assets/7495dcfb-c7cb-44e6-a1ef-d82930a8ada7" /><img width="435" alt="Screenshot 2025-04-12 at 02 20 13" src="https://github.com/user-attachments/assets/02410f03-c85e-404d-a0fb-f30920d18a58" /><img width="1150" alt="Screenshot 2025-04-12 at 02 21 23" src="https://github.com/user-attachments/assets/df56b22e-ebd6-4cd3-a1e7-4b960120d659" /><img width="859" alt="Screenshot 2025-04-12 at 02 21 52" src="https://github.com/user-attachments/assets/1875a91f-afa5-4dbe-a94d-2471de11cc19" /><img width="842" alt="Screenshot 2025-04-12 at 02 22 11" src="https://github.com/user-attachments/assets/03bed7d2-bc82-4994-aea1-0ccfae3ab967" /><img width="842" alt="Screenshot 2025-04-12 at 02 22 30" src="https://github.com/user-attachments/assets/e75294a7-72f0-480f-932a-8e63bccbc89b" /><img width="228" alt="Screenshot 2025-04-12 at 02 23 19" src="https://github.com/user-attachments/assets/588a7017-8aca-417f-be6c-096f986c20e2" /><img width="194" alt="Screenshot 2025-04-12 at 02 23 28" src="https://github.com/user-attachments/assets/86addcb3-1fd6-48d9-9ed5-eb9d2cf5db96" /><img width="127" alt="Screenshot 2025-04-12 at 02 23 45" src="https://github.com/user-attachments/assets/090c832e-5456-4dd0-9c2f-dddb18f1dc9d" />
+![Screenshot 2025-04-12 at 02 20 06](https://github.com/user-attachments/assets/7495dcfb-c7cb-44e6-a1ef-d82930a8ada7)
+![Screenshot 2025-04-12 at 02 20 13](https://github.com/user-attachments/assets/02410f03-c85e-404d-a0fb-f30920d18a58)
+![Screenshot 2025-04-12 at 02 21 23](https://github.com/user-attachments/assets/df56b22e-ebd6-4cd3-a1e7-4b960120d659)
+![Screenshot 2025-04-12 at 02 21 52](https://github.com/user-attachments/assets/1875a91f-afa5-4dbe-a94d-2471de11cc19)
+![Screenshot 2025-04-12 at 02 22 11](https://github.com/user-attachments/assets/03bed7d2-bc82-4994-aea1-0ccfae3ab967)
+![Screenshot 2025-04-12 at 02 22 30](https://github.com/user-attachments/assets/e75294a7-72f0-480f-932a-8e63bccbc89b)
+![Screenshot 2025-04-12 at 02 23 19](https://github.com/user-attachments/assets/588a7017-8aca-417f-be6c-096f986c20e2)
+![Screenshot 2025-04-12 at 02 23 28](https://github.com/user-attachments/assets/86addcb3-1fd6-48d9-9ed5-eb9d2cf5db96)
+![Screenshot 2025-04-12 at 02 23 45](https://github.com/user-attachments/assets/090c832e-5456-4dd0-9c2f-dddb18f1dc9d)
 
 Stockly is a **ReactJS-based inventory management application** built with **Next.js**. It is designed to help businesses efficiently manage their product inventory. The application includes features such as product listing, adding new products, editing existing products, filtering products, and more. It also incorporates robust security measures like **JWT-based authentication**, **password hashing**, and **middleware** for secure API interactions.
 
-**Online-Live:** https://stockly-inventory.vercel.app/
+**Online-Live:** <https://stockly-inventory.vercel.app/>
 
 ## Features
 
