@@ -16,14 +16,26 @@
 
 Stockly is a React-based inventory management application built with Next.js. It is designed to help businesses efficiently manage their product inventory. The application includes features such as product listing, adding new products, editing existing products, filtering products, and more. It also incorporates robust security measures like **JWT-based authentication**, **password hashing**, and **middleware** for secure API interactions.
 
-- **Live Demo:** [https://stockly-inventory.vercel.app/](https://stockly-inventory.vercel.app/)
+- **Live-Demo:** [https://stockly-inventory.vercel.app/](https://stockly-inventory.vercel.app/)
+
+---
+
+## Project Features
+
+- **Product Management:** List, add, edit, and delete products with details (name, SKU, status, quantity, price, supplier).
+- **Filtering & Sorting:** Filter by status, category, supplier; search by name/SKU; sort by name, price, quantity.
+- **Authentication:** Secure login/registration with JWT, password hashing (bcrypt), session management.
+- **Responsive Design:** Works seamlessly on desktops, tablets, and mobile devices.
+- **API Integration:** RESTful APIs for products, categories, suppliers, and authentication.
+- **Database:** MongoDB with Prisma ORM for schema management and queries.
+- **Security:** JWT-based authentication, password hashing, middleware for route protection.
 
 ---
 
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
-2. [Features](#features)
+2. [Project Features](#project-features)
 3. [Technology Stack](#technology-stack)
 4. [Project Structure](#project-structure)
 5. [API Endpoints](#api-endpoints)
@@ -39,50 +51,40 @@ Stockly is a React-based inventory management application built with Next.js. It
 
 ## Detailed Features
 
-## 1. Product Management
+### 1. Product Management
 
 - **Product Listing**: View a list of all products with details such as name, SKU, status, quantity in stock, price, and supplier.
 - **Add Product**: Add new products to the inventory with details such as name, SKU, status, quantity, price, and supplier.
 - **Edit Product**: Edit existing product details.
 - **Delete Product**: Remove products from the inventory.
 
-## 2. Filtering and Sorting
+### 2. Filtering and Sorting
 
 - **Filter Products**: Filter products based on status, category, and supplier.
 - **Search Products**: Search for products by name or SKU.
 - **Sort Products**: Sort products by attributes like name, price, or quantity.
 
-## 3. Authentication
+### 3. Authentication
 
 - **User Login and Registration**: Secure user authentication using **JWT (JSON Web Tokens)**.
 - **Password Hashing**: Passwords are hashed using **bcrypt** for secure storage.
 - **Session Management**: Tokens are stored securely in cookies for session management.
 
-## 4. Responsive Design
+### 4. Responsive Design
 
 - The application is fully responsive and works seamlessly on devices of all screen sizes, including desktops, tablets, and mobile phones.
 
-## 5. API Integration
+### 5. API Integration
 
 - **RESTful APIs**: The backend is built with Next.js API routes, providing endpoints for managing products, users, and authentication.
 - **Middleware**: Middleware is used to validate tokens and protect sensitive routes.
 
-## 6. Database
+### 6. Database
 
 - **MongoDB**: The application uses MongoDB as the database to store product and user information.
 - **Prisma ORM**: Prisma is used as the ORM for database schema management and queries.
 
 ---
-
-## Features
-
-- **Product Management:** List, add, edit, and delete products with details (name, SKU, status, quantity, price, supplier).
-- **Filtering & Sorting:** Filter by status, category, supplier; search by name/SKU; sort by name, price, quantity.
-- **Authentication:** Secure login/registration with JWT, password hashing (bcrypt), session management.
-- **Responsive Design:** Works seamlessly on desktops, tablets, and mobile devices.
-- **API Integration:** RESTful APIs for products, categories, suppliers, and authentication.
-- **Database:** MongoDB with Prisma ORM for schema management and queries.
-- **Security:** JWT-based authentication, password hashing, middleware for route protection.
 
 ## Technology Stack
 
@@ -93,6 +95,8 @@ Stockly is a React-based inventory management application built with Next.js. It
 - **UI Components:** Custom and reusable components (see `/components/ui`)
 - **State Management:** React Context, custom hooks
 - **Other:** Toast notifications, global loading, responsive fonts
+
+---
 
 ## Project Structure
 
@@ -149,32 +153,34 @@ stockly
 └── tsconfig.json
 ```
 
+---
+
 ## How It Works
 
-## 1. Authentication
+### 1. Authentication
 
 - **Registration**: Users register by providing their email and password. The password is hashed using **bcrypt** before being stored in the database.
 - **Login**: Users log in with their email and password. A **JWT** is generated upon successful login and stored in a secure cookie.
 - **Token Validation**: Middleware validates the JWT for protected routes to ensure only authenticated users can access them.
 
-## 2. Product Management
+### 2. Product Management
 
 - **Add Product**: Users can add products by filling out a form with details like name, SKU, category, supplier, price, and quantity.
 - **Edit Product**: Users can edit product details through a dialog form.
 - **Delete Product**: Users can delete products, which removes them from the database.
 
-## 3. Filtering and Sorting
+### 3. Filtering and Sorting
 
 - **Category Filter**: Products can be filtered by category using a dropdown menu.
 - **Status Filter**: Products can be filtered by their stock status (e.g., Available, Stock Low, Stock Out).
 - **Supplier Filter**: Products can be filtered by supplier.
 - **Search**: Users can search for products by name or SKU.
 
-## 4. Database Schema
+### 4. Database Schema
 
 The database schema is managed using **Prisma** and stored in **MongoDB**. Below is an example of the schema:
 
-## schema.prisma
+### schema.prisma
 
 ```prisma
 datasource db {
@@ -249,17 +255,17 @@ model VerificationToken {
 
 ## Authentication & Security
 
-## 1. Password Hashing
+### 1. Password Hashing
 
 - Passwords are hashed using **bcrypt** before being stored in the database. This ensures that even if the database is compromised, passwords remain secure.
 
-## 2. JWT Authentication
+### 2. JWT Authentication
 
 - **Token Generation**: Upon login, a JWT is generated and sent to the client.
 - **Token Storage**: The token is stored in a secure, HTTP-only cookie to prevent XSS attacks.
 - **Token Validation**: Middleware validates the token for protected routes.
 
-## 3. Middleware
+### 3. Middleware
 
 - Middleware is used to protect sensitive API routes by validating the JWT and ensuring the user is authenticated.
 
@@ -267,14 +273,14 @@ model VerificationToken {
 
 ## How to Run the Project
 
-## 1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/your-username/stockly.git
 cd stockly
 ```
 
-## 2. Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 npm install
@@ -288,7 +294,7 @@ If you get error installing any npm dependency, it might be due to using Next.js
 npm install --force
 ```
 
-## 3. Set Up Environment Variables
+### 3. Set Up Environment Variables
 
 Create a `.env` file in the root directory and add the following environment variables:
 
@@ -297,39 +303,39 @@ DATABASE_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/stockly
 JWT_SECRET=your_jwt_secret
 ```
 
-## 4. Run the Development Server
+### 4. Run the Development Server
 
 ```bash
 npm run dev
 ```
 
-## 5. Open the Application
+### 5. Open the Application
 
 Open your browser and navigate to `http://localhost:3000`
 
 ## API Endpoints
 
-## Authentication
+### Authentication
 
 - **POST /api/auth/register**: Register a new user.
 - **POST /api/auth/login**: Log in a user and return a JWT.
 - **GET /api/auth/me**: Get the authenticated user's details.
 
-## Products
+### Products
 
 - **GET /api/products**: Get a list of all products.
 - **POST /api/products**: Add a new product.
 - **PUT /api/products/:id**: Update an existing product.
 - **DELETE /api/products/:id**: Delete a product.
 
-## Category
+### Category
 
 - **GET /api/categories**: Get a list of all categories.
 - **POST /api/categories**: Add a new categories.
 - **PUT /api/categories/:id**: Update an existing categories.
 - **DELETE /api/categories/:id**: Delete a categories.
 
-## Supplier
+### Supplier
 
 - **GET /api/suppliers**: Get a list of all suppliers.
 - **POST /api/suppliers**: Add a new suppliers.
