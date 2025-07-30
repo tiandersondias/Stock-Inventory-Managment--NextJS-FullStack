@@ -10,11 +10,34 @@
 ![Screenshot 2025-04-12 at 02 23 28](https://github.com/user-attachments/assets/86addcb3-1fd6-48d9-9ed5-eb9d2cf5db96)
 ![Screenshot 2025-04-12 at 02 23 45](https://github.com/user-attachments/assets/090c832e-5456-4dd0-9c2f-dddb18f1dc9d)
 
+---
+
+## Project Overview
+
 Stockly is a React-based inventory management application built with Next.js. It is designed to help businesses efficiently manage their product inventory. The application includes features such as product listing, adding new products, editing existing products, filtering products, and more. It also incorporates robust security measures like **JWT-based authentication**, **password hashing**, and **middleware** for secure API interactions.
 
-- **Live-Demo:** <https://stockly-inventory.vercel.app/>
+- **Live Demo:** [https://stockly-inventory.vercel.app/](https://stockly-inventory.vercel.app/)
 
-## Features
+---
+
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [Features](#features)
+3. [Technology Stack](#technology-stack)
+4. [Project Structure](#project-structure)
+5. [API Endpoints](#api-endpoints)
+6. [Authentication & Security](#authentication--security)
+7. [How It Works](#how-it-works)
+8. [How to Run the Project](#how-to-run-the-project)
+9. [Component Reusability & Examples](#component-reusability--examples)
+10. [Keywords](#keywords)
+11. [Conclusion](#conclusion)
+12. [Happy Coding! 🎉](#happy-coding-)
+
+---
+
+## Detailed Features
 
 ## 1. Product Management
 
@@ -48,6 +71,83 @@ Stockly is a React-based inventory management application built with Next.js. It
 
 - **MongoDB**: The application uses MongoDB as the database to store product and user information.
 - **Prisma ORM**: Prisma is used as the ORM for database schema management and queries.
+
+---
+
+## Features
+
+- **Product Management:** List, add, edit, and delete products with details (name, SKU, status, quantity, price, supplier).
+- **Filtering & Sorting:** Filter by status, category, supplier; search by name/SKU; sort by name, price, quantity.
+- **Authentication:** Secure login/registration with JWT, password hashing (bcrypt), session management.
+- **Responsive Design:** Works seamlessly on desktops, tablets, and mobile devices.
+- **API Integration:** RESTful APIs for products, categories, suppliers, and authentication.
+- **Database:** MongoDB with Prisma ORM for schema management and queries.
+- **Security:** JWT-based authentication, password hashing, middleware for route protection.
+
+## Technology Stack
+
+- **Frontend:** Next.js, React, Tailwind CSS
+- **Backend:** Next.js API routes, Prisma ORM
+- **Database:** MongoDB
+- **Authentication:** JWT, bcrypt
+- **UI Components:** Custom and reusable components (see `/components/ui`)
+- **State Management:** React Context, custom hooks
+- **Other:** Toast notifications, global loading, responsive fonts
+
+## Project Structure
+
+```bash
+stockly
+├── app
+│   ├── AppHeader
+│   │   └── AppHeader.tsx
+│   ├── AppTable
+│   │   ├── AppTable.tsx
+│   │   ├── ProductDialog
+│   │   │   ├── ProductDialog.tsx
+│   │   │   ├── _components
+│   │   │   │   ├── ProductName.tsx
+│   │   │   │   ├── Price.tsx
+│   │   │   │   ├── ProductCategory.tsx
+│   │   │   │   ├── Quantity.tsx
+│   │   │   │   ├── SKU.tsx
+│   │   │   │   ├── Status.tsx
+│   │   │   │   └── Supplier.tsx
+│   │   ├── dropdowns
+│   │   │   ├── StatusDropDown.tsx
+│   │   │   └── CategoryDropDown.tsx
+│   ├── DeleteDialog
+│   │   └── DeleteDialog.tsx
+│   ├── Products
+│   │   ├── ProductTable.tsx
+│   │   └── columns.tsx
+│   ├── authContext.tsx
+│   ├── login
+│   │   └── page.tsx
+│   ├── register
+│   │   └── page.tsx
+│   ├── page.tsx
+├── components
+│   └── ui
+│       ├── badge.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       ├── dropdown-menu.tsx
+│       ├── input.tsx
+│       ├── label.tsx
+│       ├── popover.tsx
+│       ├── select.tsx
+│       ├── separator.tsx
+│       ├── table.tsx
+│       └── textarea.tsx
+├── public
+├── styles
+│   └── globals.css
+├── .gitignore
+├── package.json
+├── README.md
+└── tsconfig.json
+```
 
 ## How It Works
 
@@ -147,7 +247,7 @@ model VerificationToken {
 }
 ```
 
-## Security
+## Authentication & Security
 
 ## 1. Password Hashing
 
@@ -238,57 +338,69 @@ Open your browser and navigate to `http://localhost:3000`
 
 ---
 
-## Project Structure
+## Component Reusability & Examples
 
-```plaintex
-stockly
-├── app
-│   ├── AppHeader
-│   │   └── AppHeader.tsx
-│   ├── AppTable
-│   │   ├── AppTable.tsx
-│   │   ├── ProductDialog
-│   │   │   ├── ProductDialog.tsx
-│   │   │   ├── _components
-│   │   │   │   ├── ProductName.tsx
-│   │   │   │   ├── Price.tsx
-│   │   │   │   ├── ProductCategory.tsx
-│   │   │   │   ├── Quantity.tsx
-│   │   │   │   ├── SKU.tsx
-│   │   │   │   ├── Status.tsx
-│   │   │   │   └── Supplier.tsx
-│   │   ├── dropdowns
-│   │   │   ├── StatusDropDown.tsx
-│   │   │   └── CategoryDropDown.tsx
-│   ├── DeleteDialog
-│   │   └── DeleteDialog.tsx
-│   ├── Products
-│   │   ├── ProductTable.tsx
-│   │   └── columns.tsx
-│   ├── authContext.tsx
-│   ├── login
-│   │   └── page.tsx
-│   ├── register
-│   │   └── page.tsx
-│   ├── page.tsx
-├── components
-│   └── ui
-│       ├── badge.tsx
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── dropdown-menu.tsx
-│       ├── input.tsx
-│       ├── label.tsx
-│       ├── popover.tsx
-│       ├── select.tsx
-│       ├── separator.tsx
-│       ├── table.tsx
-│       └── textarea.tsx
-├── public
-├── styles
-│   └── globals.css
-├── .gitignore
-├── package.json
-├── README.md
-└── tsconfig.json
+Stockly is built with reusable React components. Here’s how to use and extend them in your own projects:
+
+### Example: Using a UI Button
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+export default function MyComponent() {
+  return <Button onClick={() => alert("Clicked!")}>Click Me</Button>;
+}
 ```
+
+### Example: Product Dialog
+
+```tsx
+import AddProductDialog from "@/app/AppTable/ProductDialog/AddProductDialog";
+
+export default function AddProduct() {
+  return <AddProductDialog />;
+}
+```
+
+### Example: Toast Notifications
+
+```tsx
+import { useToast } from "@/hooks/use-toast";
+
+const { toast } = useToast();
+toast({ title: "Product added!", description: "Your product was added successfully." });
+```
+
+### Example: Table Component
+
+```tsx
+import { Table } from "@/components/ui/table";
+
+<Table>
+  {/* Table rows and cells */}
+</Table>
+```
+
+### Extending Components
+
+All UI components are designed for easy extension. You can copy, modify, or import them into other Next.js/React projects.
+
+## Keywords
+
+Stockly, Inventory Management, Next.js, React, Prisma, MongoDB, Product Listing, Authentication, JWT, CRUD, Responsive Web App, Arnob Mahmud, UI Components, API, Security, Middleware, Filtering, Sorting, Reusable Components, Open Source, Full Stack, Modern Web App
+
+## Conclusion
+
+Stockly is a robust, modern inventory management system built for learning, sharing, and real-world use. It demonstrates best practices in full-stack development, authentication, API design, and UI/UX. Feel free to use, extend, and contribute to this project!
+
+## Happy Coding! 🎉
+
+Feel free to use this project repository and extend this project further!
+
+If you have any questions or want to share your work, reach out via GitHub or my portfolio at [https://arnob-mahmud.vercel.app/](https://arnob-mahmud.vercel.app/).
+
+**Enjoy building and learning!** 🚀
+
+Thank you! 😊
+
+---
