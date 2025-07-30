@@ -1,4 +1,4 @@
-# Stockly - Inventory Management System
+# Stockly - Stock Inventory Management System Next.js Web Application
 
 ![Screenshot 2025-04-12 at 02 20 06](https://github.com/user-attachments/assets/7495dcfb-c7cb-44e6-a1ef-d82930a8ada7)
 ![Screenshot 2025-04-12 at 02 20 13](https://github.com/user-attachments/assets/02410f03-c85e-404d-a0fb-f30920d18a58)
@@ -10,9 +10,9 @@
 ![Screenshot 2025-04-12 at 02 23 28](https://github.com/user-attachments/assets/86addcb3-1fd6-48d9-9ed5-eb9d2cf5db96)
 ![Screenshot 2025-04-12 at 02 23 45](https://github.com/user-attachments/assets/090c832e-5456-4dd0-9c2f-dddb18f1dc9d)
 
-Stockly is a **ReactJS-based inventory management application** built with **Next.js**. It is designed to help businesses efficiently manage their product inventory. The application includes features such as product listing, adding new products, editing existing products, filtering products, and more. It also incorporates robust security measures like **JWT-based authentication**, **password hashing**, and **middleware** for secure API interactions.
+Stockly is a React-based inventory management application built with Next.js. It is designed to help businesses efficiently manage their product inventory. The application includes features such as product listing, adding new products, editing existing products, filtering products, and more. It also incorporates robust security measures like **JWT-based authentication**, **password hashing**, and **middleware** for secure API interactions.
 
-**Online-Live:** <https://stockly-inventory.vercel.app/>
+- **Live-Demo:** <https://stockly-inventory.vercel.app/>
 
 ## Features
 
