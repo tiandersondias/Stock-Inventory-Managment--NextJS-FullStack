@@ -253,6 +253,8 @@ model VerificationToken {
 }
 ```
 
+---
+
 ## Authentication & Security
 
 ### 1. Password Hashing
@@ -312,6 +314,8 @@ npm run dev
 ### 5. Open the Application
 
 Open your browser and navigate to `http://localhost:3000`
+
+---
 
 ## API Endpoints
 
@@ -391,13 +395,19 @@ import { Table } from "@/components/ui/table";
 
 All UI components are designed for easy extension. You can copy, modify, or import them into other Next.js/React projects.
 
+---
+
 ## Keywords
 
 Stockly, Inventory Management, Next.js, React, Prisma, MongoDB, Product Listing, Authentication, JWT, CRUD, Responsive Web App, Arnob Mahmud, UI Components, API, Security, Middleware, Filtering, Sorting, Reusable Components, Open Source, Full Stack, Modern Web App
 
+---
+
 ## Conclusion
 
 Stockly is a robust, modern inventory management system built for learning, sharing, and real-world use. It demonstrates best practices in full-stack development, authentication, API design, and UI/UX. Feel free to use, extend, and contribute to this project!
+
+---
 
 ## Happy Coding! 🎉
 
