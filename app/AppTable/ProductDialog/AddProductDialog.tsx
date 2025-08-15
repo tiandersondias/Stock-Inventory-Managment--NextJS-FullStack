@@ -10,7 +10,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
 import { useForm, FormProvider } from "react-hook-form";
@@ -49,10 +48,14 @@ interface ProductFormData {
 
 interface AddProductDialogProps {
   allProducts: Product[];
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export default function AddProductDialog({
   allProducts,
+  open,
+  onOpenChange,
 }: AddProductDialogProps) {
   const methods = useForm<ProductFormData>({
     resolver: zodResolver(ProductSchema),
@@ -73,8 +76,6 @@ export default function AddProductDialog({
 
   const {
     isLoading,
-    setOpenProductDialog,
-    openProductDialog,
     setSelectedProduct,
     selectedProduct,
     addProduct,
@@ -105,7 +106,7 @@ export default function AddProductDialog({
       setSelectedCategory("");
       setSelectedSupplier("");
     }
-  }, [selectedProduct, openProductDialog, reset]);
+  }, [selectedProduct, open, reset]);
 
   const calculateStatus = (quantity: number): string => {
     if (quantity > 20) return "Available";
@@ -141,7 +142,7 @@ export default function AddProductDialog({
           });
           dialogCloseRef.current?.click();
           loadProducts();
-          setOpenProductDialog(false);
+          onOpenChange(false);
         }
       } else {
         const productToUpdate: Product = {
@@ -164,7 +165,7 @@ export default function AddProductDialog({
             description: "Product updated successfully!",
           });
           loadProducts();
-          setOpenProductDialog(false);
+          onOpenChange(false);
         } else {
           toast({
             title: "Error",
@@ -183,10 +184,7 @@ export default function AddProductDialog({
   };
 
   return (
-    <Dialog open={openProductDialog} onOpenChange={setOpenProductDialog}>
-      <DialogTrigger asChild>
-        <Button className="h-10 font-semibold">+Add Product</Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className="p-4 sm:p-7 sm:px-8 poppins max-h-[90vh] overflow-y-auto"
         aria-describedby="dialog-description"

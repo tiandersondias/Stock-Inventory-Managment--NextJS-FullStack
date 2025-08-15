@@ -1,159 +1,10 @@
-// "use client";
-
-// import React, { useEffect } from "react";
-// import { CategoryDropDown } from "./AppTable/dropdowns/CategoryDropDown";
-// import { StatusDropDown } from "./AppTable/dropdowns/StatusDropDown";
-// import { SuppliersDropDown } from "./AppTable/dropdowns/SupplierDropDown";
-// import AddCategoryDialog from "./AppTable/ProductDialog/AddCategoryDialog";
-// import AddSupplierDialog from "./AppTable/ProductDialog/AddSupplierDialog";
-// import AddProductDialog from "./AppTable/ProductDialog/AddProductDialog";
-// import { Product } from "@/app/types";
-// import { Input } from "@/components/ui/input";
-// import PaginationSelection, {
-//   PaginationType,
-// } from "./Products/PaginationSelection";
-// import { ColumnFiltersState } from "@tanstack/react-table";
-// import { Badge } from "@/components/ui/badge";
-// import { Separator } from "@/components/ui/separator";
-// import { Button } from "@/components/ui/button";
-// import { IoClose } from "react-icons/io5";
-
-// type FiltersAndActionsProps = {
-//   setColumnFilters: React.Dispatch<React.SetStateAction<ColumnFiltersState>>;
-//   setSearchTerm: (term: string) => void;
-//   pagination: PaginationType;
-//   setPagination: (
-//     updater: PaginationType | ((old: PaginationType) => PaginationType)
-//   ) => void;
-//   allProducts: Product[];
-// };
-
-// export default function FiltersAndActions({
-//   setColumnFilters,
-//   setSearchTerm,
-//   pagination,
-//   setPagination,
-//   allProducts,
-// }: FiltersAndActionsProps) {
-//   const [selectedCategory, setSelectedCategory] = React.useState<string[]>([]);
-//   const [selectedStatuses, setSelectedStatuses] = React.useState<string[]>([]);
-//   const [selectedSuppliers, setSelectedSuppliers] = React.useState<string[]>(
-//     []
-//   );
-
-//   useEffect(() => {
-//     const filters: ColumnFiltersState = [
-//       {
-//         id: "categoryId",
-//         value: selectedCategory.length > 0 ? selectedCategory : undefined, // Pass category IDs directly
-//       },
-//       {
-//         id: "status",
-//         value: selectedStatuses.length > 0 ? selectedStatuses : undefined, // Pass statuses directly
-//       },
-//       {
-//         id: "supplierId",
-//         value: selectedSuppliers.length > 0 ? selectedSuppliers : undefined, // Pass supplier IDs directly
-//       },
-//     ].filter((filter) => filter.value !== undefined); // Ensure only valid filters are passed
-
-//     console.log("Updated Column Filters:", filters); // Debug log
-//     setColumnFilters(filters);
-//   }, [selectedCategory, selectedStatuses, selectedSuppliers, setColumnFilters]);
-
-//   return (
-//     <div className="flex flex-col gap-4 mb-6">
-//       {/* Search Bar */}
-//       <div className="flex justify-center">
-//         <Input
-//           placeholder="Search by name..."
-//           onChange={(e) => setSearchTerm(e.target.value)}
-//           className="max-w-sm h-10"
-//         />
-//       </div>
-
-//       {/* Filter Area */}
-//       <FilterArea
-//         selectedStatuses={selectedStatuses}
-//         setSelectedStatuses={setSelectedStatuses}
-//         selectedCategories={selectedCategory}
-//         setSelectedCategories={setSelectedCategory}
-//         selectedSuppliers={selectedSuppliers}
-//         setSelectedSuppliers={setSelectedSuppliers}
-//       />
-
-//       {/* Large Screen Layout */}
-//       <div className="hidden lg:flex justify-between items-center gap-4">
-//         {/* Add Buttons */}
-//         <div className="flex gap-4">
-//           <AddProductDialog allProducts={allProducts} />
-//           <AddCategoryDialog />
-//           <AddSupplierDialog />
-//         </div>
-
-//         {/* Pagination Selection */}
-//         <div className="flex justify-center">
-//           <PaginationSelection
-//             pagination={pagination}
-//             setPagination={setPagination}
-//           />
-//         </div>
-
-//         {/* Filter Buttons */}
-//         <div className="flex gap-4">
-//           <CategoryDropDown
-//             selectedCategory={selectedCategory}
-//             setSelectedCategory={setSelectedCategory}
-//           />
-//           <StatusDropDown
-//             selectedStatuses={selectedStatuses}
-//             setSelectedStatuses={setSelectedStatuses}
-//           />
-//           <SuppliersDropDown
-//             selectedSuppliers={selectedSuppliers}
-//             setSelectedSuppliers={setSelectedSuppliers}
-//           />
-//         </div>
-//       </div>
-
-//       {/* Medium and Small Screen Layout */}
-//       <div className="flex flex-col lg:hidden gap-4">
-//         {/* Add Buttons */}
-//         <div className="flex flex-col gap-4">
-//           <AddProductDialog allProducts={allProducts} />
-//           <AddCategoryDialog />
-//           <AddSupplierDialog />
-//         </div>
-
-//         {/* Filter Buttons */}
-//         <div className="flex flex-col gap-4">
-//           <CategoryDropDown
-//             selectedCategory={selectedCategory}
-//             setSelectedCategory={setSelectedCategory}
-//           />
-//           <StatusDropDown
-//             selectedStatuses={selectedStatuses}
-//             setSelectedStatuses={setSelectedStatuses}
-//           />
-//           <SuppliersDropDown
-//             selectedSuppliers={selectedSuppliers}
-//             setSelectedSuppliers={setSelectedSuppliers}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
 
-//import React, { useEffect } from "react";
+import React from "react";
 import { CategoryDropDown } from "./AppTable/dropdowns/CategoryDropDown";
 import { StatusDropDown } from "./AppTable/dropdowns/StatusDropDown";
 import { SuppliersDropDown } from "./AppTable/dropdowns/SupplierDropDown";
-import AddCategoryDialog from "./AppTable/ProductDialog/AddCategoryDialog";
-import AddSupplierDialog from "./AppTable/ProductDialog/AddSupplierDialog";
-import AddProductDialog from "./AppTable/ProductDialog/AddProductDialog";
+import AddData from "./AppTable/AddData";
 import { Product } from "@/app/types";
 import { Input } from "@/components/ui/input";
 import PaginationSelection, {
@@ -216,9 +67,7 @@ export default function FiltersAndActions({
       <div className="hidden lg:flex justify-between items-center gap-4">
         {/* Add Buttons */}
         <div className="flex gap-4">
-          <AddProductDialog allProducts={allProducts} />
-          <AddCategoryDialog />
-          <AddSupplierDialog />
+          <AddData allProducts={allProducts} />
         </div>
 
         {/* Pagination Selection */}
@@ -250,9 +99,7 @@ export default function FiltersAndActions({
       <div className="flex flex-col lg:hidden gap-4">
         {/* Add Buttons */}
         <div className="flex flex-col gap-4">
-          <AddProductDialog allProducts={allProducts} />
-          <AddCategoryDialog />
-          <AddSupplierDialog />
+          <AddData allProducts={allProducts} />
         </div>
 
         {/* Filter Buttons */}
