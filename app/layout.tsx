@@ -102,9 +102,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Suspense fallback={<div>Loading...</div>}>
-              <GlobalLoading />
-            </Suspense>
+            <GlobalLoading />
             <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
           </ThemeProvider>
           <Toaster />
