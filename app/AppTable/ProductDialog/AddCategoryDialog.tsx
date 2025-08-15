@@ -9,7 +9,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -19,7 +18,15 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { useAuth } from "@/app/authContext";
 import axiosInstance from "@/utils/axiosInstance";
 
-export default function AddCategoryDialog() {
+interface AddCategoryDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export default function AddCategoryDialog({
+  open,
+  onOpenChange,
+}: AddCategoryDialogProps) {
   const [categoryName, setCategoryName] = useState("");
   const [editingCategory, setEditingCategory] = useState<string | null>(null);
   const [newCategoryName, setNewCategoryName] = useState("");
@@ -149,10 +156,7 @@ export default function AddCategoryDialog() {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className="h-10 font-semibold">+Add Category</Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="p-4 sm:p-7 sm:px-8 poppins max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-[22px]">Add Category</DialogTitle>

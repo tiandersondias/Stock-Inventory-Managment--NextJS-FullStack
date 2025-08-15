@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProductTable } from "../Products/ProductTable";
 import { columns } from "../Products/columns";
@@ -9,7 +9,15 @@ import { useAuth } from "../authContext";
 import { useRouter } from "next/navigation";
 import FiltersAndActions from "../FiltersAndActions";
 import { PaginationType } from "../Products/PaginationSelection";
-//import { ColumnFiltersState } from "@tanstack/react-table";
+import {
+  useReactTable,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
+} from "@tanstack/react-table";
+import { Product } from "@/app/types";
+import { PaginationControls } from "../Products/PaginationControls";
 
 export default function AppTable() {
   const { allProducts, loadProducts, isLoading } = useProductStore();
@@ -22,6 +30,7 @@ export default function AppTable() {
     pageIndex: 0,
     pageSize: 8,
   });
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   // State for selected filters
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
@@ -37,9 +46,42 @@ export default function AppTable() {
     }
   }, [isLoggedIn, loadProducts, router]);
 
-  useEffect(() => {
-    console.log("All Products in AppTable:", allProducts);
-  }, [allProducts]);
+  const filteredData = useMemo(() => {
+    const filtered = allProducts.filter((product) => {
+      const categoryMatch =
+        selectedCategory.length === 0 ||
+        selectedCategory.includes(product.categoryId ?? "");
+
+      const supplierMatch =
+        selectedSuppliers.length === 0 ||
+        selectedSuppliers.includes(product.supplierId ?? "");
+
+      const statusMatch =
+        selectedStatuses.length === 0 ||
+        selectedStatuses.includes(product.status ?? "");
+
+      const searchTermMatch =
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.sku.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return categoryMatch && supplierMatch && statusMatch && searchTermMatch;
+    });
+    return filtered;
+  }, [allProducts, selectedCategory, selectedSuppliers, selectedStatuses, searchTerm]);
+
+  const table = useReactTable({
+    data: filteredData,
+    columns,
+    state: {
+      pagination,
+      sorting,
+    },
+    onSortingChange: setSorting,
+    onPaginationChange: setPagination,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+  });
 
   if (!isLoggedIn || !user) {
     return null;
@@ -52,7 +94,7 @@ export default function AppTable() {
         <div className="flex flex-col items-center sm:items-start">
           <CardTitle className="font-bold text-[23px]">Products</CardTitle>
           <p className="text-sm text-slate-600">
-            {allProducts.length} products
+            {filteredData.length} products
           </p>
         </div>
       </CardHeader>
@@ -74,17 +116,13 @@ export default function AppTable() {
 
         {/* Product Table */}
         <ProductTable
-          data={allProducts} // Pass all products
-          columns={columns} // Pass table columns
-          userId={user.id}
+          columns={columns}
           isLoading={isLoading}
-          searchTerm={searchTerm} // Pass search term
-          pagination={pagination} // Pass pagination state
-          setPagination={setPagination} // Allow ProductTable to update pagination
-          selectedCategory={selectedCategory}
-          selectedStatuses={selectedStatuses}
-          selectedSuppliers={selectedSuppliers}
+          table={table}
         />
+
+        {/* Pagination Controls */}
+        <PaginationControls table={table} />
       </CardContent>
     </Card>
   );

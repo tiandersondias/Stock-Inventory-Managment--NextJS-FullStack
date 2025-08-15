@@ -35,8 +35,22 @@ export default function AppHeader() {
         </div>
       </div>
 
-      {/* Theme Toggle and Logout Button */}
+      {/* Navigation, Theme Toggle, and Logout Button */}
       <div className="flex items-center space-x-4 mt-4 sm:mt-0">
+        <Button
+          onClick={() => router.push("/")}
+          variant="ghost"
+          className="text-primary-foreground hover:bg-primary-dark"
+        >
+          Products
+        </Button>
+        <Button
+          onClick={() => router.push("/dashboard")}
+          variant="ghost"
+          className="text-primary-foreground hover:bg-primary-dark"
+        >
+          Dashboard
+        </Button>
         <ModeToggle />
         <Button
           onClick={handleLogout}

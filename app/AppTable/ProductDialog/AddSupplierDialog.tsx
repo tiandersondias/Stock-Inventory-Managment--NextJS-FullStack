@@ -9,7 +9,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -19,7 +18,15 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { useAuth } from "@/app/authContext";
 import axiosInstance from "@/utils/axiosInstance";
 
-export default function AddSupplierDialog() {
+interface AddSupplierDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export default function AddSupplierDialog({
+  open,
+  onOpenChange,
+}: AddSupplierDialogProps) {
   const [supplierName, setSupplierName] = useState("");
   const [editingSupplier, setEditingSupplier] = useState<string | null>(null);
   const [newSupplierName, setNewSupplierName] = useState("");
@@ -149,10 +156,7 @@ export default function AddSupplierDialog() {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button className="h-10 font-semibold">+Add Supplier</Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="p-4 sm:p-7 sm:px-8 poppins max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-[22px]">Add Supplier</DialogTitle>
